@@ -1,0 +1,129 @@
+body.page{
+    width: 100%; height:  100%;
+    background: var(--bg-primary);
+    color: var(--col-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.page nav {
+    width: 80%; display:  block;
+    height: 40px; box-sizing: border-box; //border: 0.2px solid transparent;
+    border-radius: 200px; padding: 10px 40px;
+    background-color: var(--col-primary);
+    background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+    animation: nav-move-bg 0.5s infinite;
+    color: var(--col-tertiary);
+    
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+    vertical-align:  middle; text-align: center;
+}
+.page nav a.nav-link{
+    text-decoration: none; 
+    display: inline-block; padding: 0px 16px;
+    font-size: 20px; line-height: 20px;
+    font-family: Courier;
+}
+.page nav a.nav-link:hover,a.nav-link:focus{
+    color: var(--col-secondary);
+    //background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 50%, transparent 100%);
+}
+body .welcome {
+    display: flex; width: 100%;
+}
+body .welcome .text {
+    width: 50%; display: block; box-sizing: border-box;
+    padding-top: 150px; padding-bottom: 100px;
+    padding-left: 50px;
+}
+body .welcome .side2 {
+    width: 50%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
+}
+body .welcome .main-text {
+    font-size: 50px;
+    color: var(--col-secondary);  
+}
+body .welcome .main-text span.highlight{
+    text-transform: uppercase;
+    color: var(--col-primary);
+}
+body .welcome .sub-text {
+    font-size: 22px; 
+    color: var(--col-primary);
+}
+.page .go-link-cnt{
+    width: 100%; padding-top: 50px;
+    text-align: center;
+}
+.page .go-link {
+    display: inline-block;
+    font-size: 20px; 
+    border: 1px solid var(--col-secondary); border-radius: 30px;
+    padding:  5px 25px; margin: 30px auto;
+    color: var(--col-secondary);
+    text-transform:  uppercase;
+    text-align:  center;
+}
+.page .go-link:hover {
+    border: 1px solid var(--col-primary);
+    padding-right: 50px; padding-left: 50px;
+}
+
+.page .welcome-abs{
+    width: 100%; position: absolute; height: 100%; box-sizing: border-box;
+    top: 0%; left: 0%; 
+    pointer-events: none;
+}
+.page .welcome-abs threejs{
+    width: 100%; height: 100%; display: block;
+}
+
+
+
+@keyframes nav-move-bg {
+  0% {
+    background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+  }
+  12.5% {
+      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 12.5%, transparent 100%);
+  }
+  25% {
+      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 25%, transparent 100%);
+  }
+  37.5% {
+      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 37.5%, transparent 100%);
+  }
+  50% {
+    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 50%, transparent 100%);
+  }
+  62.5% {
+    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 62.5%, transparent 100%);
+  }
+  75% {
+    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 75%, transparent 100%);
+  }
+  87.5% {
+    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 87.5%, transparent 100%);
+  }
+  100%{
+    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 100%);
+  }
+}
+
+
+
+@media  (max-width: 900px) {
+  a.nav-link {
+    font-size: 15px !important;
+  }
+  body .welcome {
+    display: block; width: 100%;
+  }
+
+    body .welcome .text {
+        width: 100%;
+    }
+    body .welcome .side2 {
+        width: 0%; 
+    }
+}
