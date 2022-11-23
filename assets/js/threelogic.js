@@ -195,7 +195,7 @@ function ThreeLogic(container) {
 
            // model
            var loader = new OBJLoader( manager );
-           loader.load('../../assets/canvas/models/head.obj', function ( object ) {
+           loader.load(assets_url+'/canvas/models/head.obj', function ( object ) {
               console.log("head model loaded");
               object.traverse( function ( child ) { 
                  if ( child instanceof THREE.Mesh || child.isMesh ) {
