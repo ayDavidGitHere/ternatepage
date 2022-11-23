@@ -6,8 +6,8 @@ import {GLTFLoader} from '../../node_modules/three/examples/jsm/loaders/GLTFLoad
 import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLoader.js';
 let colors = {}
 colors.bg_secondary = window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary");
-
-
+let assets_url = window.location.origin+"/assets";
+console.log(assets_url)
 
 
 function ThreeLogic(container) {
@@ -141,7 +141,7 @@ function ThreeLogic(container) {
         loader.setDRACOLoader( dracoLoader );
         loader.load(
         	//'http://100.115.92.2:1111/canvas//models/model.gltf',
-        	'../../assets/canvas//models/chariot.gltf',
+        	assets_url+'/canvas//models/chariot.gltf',
         	function ( gltf ) {
         		scene.add( gltf.scene );
         		gltf.animations; // Array<THREE.AnimationClip>
