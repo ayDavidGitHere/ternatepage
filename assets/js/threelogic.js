@@ -10,6 +10,18 @@ let assets_url = window.location.origin+"/assets";
 if(window.location.href.includes("ternatepage")) 
 assets_url = "https://aydavidgithere.github.io/ternatepage/assets"
 console.log(assets_url)
+let mousePos = {x:.5,y:.5};
+document.addEventListener('mousemove', function (event) {
+    event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};console.log(mousePos)
+});
+document.addEventListener('touchmove+', function (event) {
+    event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};console.log(mousePos)
+});
+
+
+
+
+
 
 
 function ThreeLogic(container) {
@@ -167,17 +179,15 @@ function ThreeLogic(container) {
     }
     function addParticles(){
         let headparticle = function() {   
-            //if ( !Modernizr.webgl ) {alert('Your browser dosent support WebGL');}
-            var mouseX = 0, mouseY = 0;
-            var p;
-            // texture
            var manager = new THREE.LoadingManager();
            manager.onProgress = function ( item, loaded, total ) {
-              //console.log('webgl, twice??');
-              //console.log( item, loaded, total );
            };
-        
-        
+           var loader = new OBJLoader( manager );
+           loader.load(assets_url+'/canvas/models/head.obj', function(object){doparticles(object)});
+           
+           
+           
+            var p;
            // particles
             var p_geom = new THREE.BufferGeometry();
             var p_material = new THREE.PointsMaterial({
@@ -193,14 +203,13 @@ function ThreeLogic(container) {
             p_geom.vertices = null;
 
 
-           // model
-           var loader = new OBJLoader( manager );
-           loader.load(assets_url+'/canvas/models/head.obj', function ( object ) {
+           function doparticles( object ) {
               console.log("head model loaded");
               object.traverse( function ( child ) { 
                  if ( child instanceof THREE.Mesh || child.isMesh ) {
                     var scale = 8;
                     p_geom.vertices = child.geometry.getAttribute("position").array;
+                    console.log(p_geom.vertices)
                  }
               });
               p_geom.setAttribute('position', new THREE.BufferAttribute( p_geom.vertices, 3 ));
@@ -217,19 +226,30 @@ function ThreeLogic(container) {
                     return sy;
                 }
                 
+                
+                ;(function (){
+                //rotation
                 py = p.rotation.y;
                 sy = pendulum(sy,py,-0.2,+0.2,-1.6,+1.6);
-                p.rotation.y += 0.05*sy;/*
+                p.rotation.y += 0.05*sy;
+                })//();
+                ;(function (){
+                //scale
                 py = p.scale.y;
                 sy = pendulum(sy,py,-0.2/10,+0.2/10,2/4+1,+2/4+8);
-                p.scale.x = p.scale.y = p.scale.z += sy;*/
+                p.scale.x = p.scale.y = p.scale.z += sy;
+                })();
+                
+                p.rotation.x = (mousePos.y-0.5) * Math.PI;
+                p.rotation.z = (mousePos.x-0.5) * Math.PI;
+                p.rotation.y = (mousePos.x-0.5) * Math.PI;
               }
-              /*
+              
               let sy = -0.2/10, py = null;
-              p.scale.x = p.scale.y = p.scale.z += 0.25;*/
+              p.scale.x = p.scale.y = p.scale.z += 0.25;/*
               let sy = -0.2, py = null;
-              p.rotation.y = 0;
-           });
+              p.rotation.y = 0;*/
+           }
            return p;
         } 
         headparticle();
