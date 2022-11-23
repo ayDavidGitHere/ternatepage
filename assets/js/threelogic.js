@@ -7,6 +7,8 @@ import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLo
 let colors = {}
 colors.bg_secondary = window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary");
 let assets_url = window.location.origin+"/assets";
+if(window.location.href.includes("ternatepage")) 
+assets_url = "https://aydavidgithere.github.io/ternatepage/assets"
 console.log(assets_url)
 
 
