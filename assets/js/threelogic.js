@@ -209,7 +209,7 @@ function ThreeLogic(container) {
                  if ( child instanceof THREE.Mesh || child.isMesh ) {
                     var scale = 8;
                     p_geom.vertices = child.geometry.getAttribute("position").array;
-                    console.log(p_geom.vertices)
+                    //console.log(p_geom.vertices)
                  }
               });
               p_geom.setAttribute('position', new THREE.BufferAttribute( p_geom.vertices, 3 ));

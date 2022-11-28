@@ -4,15 +4,16 @@ body.page{
     color: var(--col-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 .page nav {
+    z-index: 2;
     width: 80%; display:  block;
     height: 40px; box-sizing: border-box; //border: 0.2px solid transparent;
     border-radius: 200px; padding: 10px 40px;
     background-color: var(--col-primary);
-    background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
-    animation: nav-move-bg 0.5s infinite;
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    //animation: nav-move-bg 0.5s infinite;
     color: var(--col-tertiary);
     
     position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
@@ -26,34 +27,118 @@ body.page{
 }
 .page nav a.nav-link:hover,a.nav-link:focus{
     color: var(--col-secondary);
-    //background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 50%, transparent 100%);
+    //background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
 }
-body .welcome {
-    display: flex; width: 100%;
+
+
+
+
+
+
+
+.page .sections {
+    overflow-y: hidden;
 }
-body .welcome .text {
+.page .sections[gone]{
+    height: 0%;
+}
+
+
+/******
+WELCOME
+*******/
+.page .welcome {
+    display: flex; width: 100%; height: 100%; 
+    position: absolute;
+}
+.page .welcome .text {
     width: 50%; display: block; box-sizing: border-box;
     padding-top: 150px; padding-bottom: 100px;
     padding-left: 50px;
 }
-body .welcome .side2 {
+.page .welcome .side2 {
     width: 50%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
 }
-body .welcome .main-text {
+.page .welcome .main-text {
     font-size: 50px;
     color: var(--col-secondary);  
 }
-body .welcome .main-text span.highlight{
+.page .welcome .main-text span.highlight{
     text-transform: uppercase;
     color: var(--col-primary);
 }
-body .welcome .sub-text {
+.page .welcome .sub-text {
     font-size: 22px; 
     color: var(--col-primary);
 }
+
+
+
+
+
+
+
+
+/******
+ABOUT
+*******/
+.page .about {
+    display: block; width: 100%; height: 100%; 
+    position: absolute; overflow-y: scroll;
+}
+.page .about .texts {
+    width: 100%; display: block; box-sizing: border-box;
+    padding-top: 150px; padding-bottom: 100px;
+    padding-left: 50px; margin: 0;
+}
+.page .about .texts .main-text {
+    font-size: 35px; text-align: center;
+    color: var(--col-secondary);  
+}
+.page .about .texts.text-main1 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-top: 150px; 
+}
+.page .about .texts.text-main1 .main-text {
+    text-align:  center;
+}
+.page .about .texts.text-next1 {
+    padding-left: 10%; padding-right: 45%; margin: 0; 
+}
+.page .about .texts.text-next1 .main-text {
+    text-align:  left;
+}
+.page .about .texts.text-next2 {
+    padding-left: 45%; padding-right: 10%; margin: 0; 
+}
+.page .about .texts.text-next2 .main-text {
+    text-align:  right;
+}
+.page .about .texts.text-last1 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-bottom: 150px; 
+}
+.page .about .texts.text-last1 .main-text {
+    text-align:  center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* **GO_LINK*** */
 .page .go-link-cnt{
-    width: 100%; padding-top: 50px;
+    width: 100%; 
     text-align: center; position: absolute; bottom: 10px;
+    pointer-events:  none;
 }
 .page .go-link {
     display: inline-block;
@@ -63,16 +148,19 @@ body .welcome .sub-text {
     color: var(--col-secondary);
     text-transform:  uppercase;
     text-align:  center;
+    background-color: var(--bg-primary);
+    pointer-events: auto;
 }
 .page .go-link:hover {
     border: 1px solid var(--col-primary);
+    color: var(--col-primary);
     padding-right: 50px; padding-left: 50px;
 }
 
 .page .welcome-abs{
     width: 100%; position: absolute; height: 100%; box-sizing: border-box;
     top: 0%; left: 0%; 
-    pointer-events: none;
+    pointer-events: none; z-index: -1;
 }
 .page .welcome-abs threejs{
     width: 100%; height: 100%; display: block;
@@ -82,31 +170,31 @@ body .welcome .sub-text {
 
 @keyframes nav-move-bg {
   0% {
-    background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   }
   12.5% {
-      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 12.5%, transparent 100%);
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 12.5%, var(--bg-primary) 100%);
   }
   25% {
-      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 25%, transparent 100%);
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 25%, var(--bg-primary) 100%);
   }
   37.5% {
-      background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 37.5%, transparent 100%);
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 37.5%, var(--bg-primary) 100%);
   }
   50% {
-    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 50%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
   }
   62.5% {
-    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 62.5%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 62.5%, var(--bg-primary) 100%);
   }
   75% {
-    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 75%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 75%, var(--bg-primary) 100%);
   }
   87.5% {
-    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 87.5%, transparent 100%);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 87.5%, var(--bg-primary) 100%);
   }
   100%{
-    background: linear-gradient(90deg, transparent 0%, var(--bg-secondary) 100%);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   }
 }
 
@@ -116,14 +204,14 @@ body .welcome .sub-text {
   a.nav-link {
     font-size: 15px !important;
   }
-  body .welcome {
+  .page .welcome {
     display: block; width: 100%;
   }
 
-    body .welcome .text {
+    .page .welcome .text {
         width: 100%;
     }
-    body .welcome .side2 {
+    .page .welcome .side2 {
         width: 0%; 
     }
 }
