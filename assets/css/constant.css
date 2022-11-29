@@ -6,6 +6,7 @@
     font-family:  Courier;
 }
 :root {
+    --crimson:#dc1e3f;
     --bg-primary:#000817;
     --bg-secondary:#dc1e3f;
     --col-primary:#dc1e3f;
@@ -21,12 +22,24 @@
     */
     
     /*
+    --songrim:#1edc3f;
     --bg-primary:#000817;
     --bg-secondary:#1edc3f;
     --col-primary:#1edc3f;
     --col-secondary:#ffffff;
     --col-tertiary:#000817;
     */
+    
+    /*
+    --blueneon:#1e3fdc;
+    --bg-primary:#000817;
+    --bg-secondary:#1e3fdc;
+    --col-primary:#1e3fdc;
+    --col-secondary:#ffffff;
+    --col-tertiary:#000817;
+    */
+    
+    
     
     
     -font-primary:#ffffff;

@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon.png">
         <link rel="stylesheet" type="text/css" href="./assets/css/constant.css" />
         <link rel="stylesheet" type="text/css" href="./assets/css/page.css" />
         <style>
@@ -23,9 +23,9 @@
             <a class="nav-link">CLUB</a>
             <a class="nav-link">COUNTRY</a>
         </nav>
-        <section class="sections welcome" gone>
+        <section class="sections welcome" app-page="welcome">
             <section class="text">
-                <p class="main-text" fnt-hF-6> Here is a particle head of your favourite skipper:  <span class="highlight" fnt-hF-6>OChoski</span>!</p>
+                <p class="main-text" fnt-hF> Here is a particle head of your favourite skipper:  <span class="highlight" fnt-hF-6>OChoski</span>!</p>
                 <p class="sub-text" fnt-p4F> select a transform to apply </p>
                 <ul class="transform-options" hidden>
                     <li>scale<opt sel>auto</opt><opt>none</opt></li>
@@ -44,7 +44,7 @@
                 
             </section>
         </section>
-        <section class="sections about">
+        <section class="sections about" app-page="about" gone>
             <div class="texts text-main1" fnt-hF-6> 
                 <p class="main-text" fnt-hF>We encompass the nature of interactive activity in response to the changing world</p>
             </div>
@@ -60,7 +60,7 @@
         </section>
         
         <div class="go-link-cnt">
-            <a class="go-link" fnt-pF>about this competition!</a>
+            <a class="go-link" goto="about" fnt-pF>about this convention</a>
         </div>
     </body>
     <script type="importmap">

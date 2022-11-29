@@ -23,7 +23,7 @@ body.page{
     text-decoration: none; 
     display: inline-block; padding: 0px 16px;
     font-size: 20px; line-height: 20px;
-    font-family: Courier;
+    font-family: Courier; 
 }
 .page nav a.nav-link:hover,a.nav-link:focus{
     color: var(--col-secondary);
@@ -60,7 +60,7 @@ WELCOME
     width: 50%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
 }
 .page .welcome .main-text {
-    font-size: 50px;
+    font-size: 50px; text-transform: capitalize;
     color: var(--col-secondary);  
 }
 .page .welcome .main-text span.highlight{
@@ -86,6 +86,9 @@ ABOUT
     display: block; width: 100%; height: 100%; 
     position: absolute; overflow-y: scroll;
 }
+
+
+
 .page .about .texts {
     width: 100%; display: block; box-sizing: border-box;
     padding-top: 150px; padding-bottom: 100px;
@@ -94,7 +97,14 @@ ABOUT
 .page .about .texts .main-text {
     font-size: 35px; text-align: center;
     color: var(--col-secondary);  
+    transition: line-height 1500ms ease;
+    line-height: 150px;
 }
+.page .about .texts[inscreen] .main-text {
+    line-height: 60px;
+}
+
+
 .page .about .texts.text-main1 {
     padding-left: 25%; padding-right: 25%; 
     margin-top: 150px; 
@@ -102,18 +112,23 @@ ABOUT
 .page .about .texts.text-main1 .main-text {
     text-align:  center;
 }
+
 .page .about .texts.text-next1 {
     padding-left: 10%; padding-right: 45%; margin: 0; 
 }
 .page .about .texts.text-next1 .main-text {
     text-align:  left;
 }
+
+
 .page .about .texts.text-next2 {
     padding-left: 45%; padding-right: 10%; margin: 0; 
 }
 .page .about .texts.text-next2 .main-text {
     text-align:  right;
 }
+
+
 .page .about .texts.text-last1 {
     padding-left: 25%; padding-right: 25%; 
     margin-bottom: 150px; 
@@ -121,7 +136,6 @@ ABOUT
 .page .about .texts.text-last1 .main-text {
     text-align:  center;
 }
-
 
 
 
@@ -150,6 +164,7 @@ ABOUT
     text-align:  center;
     background-color: var(--bg-primary);
     pointer-events: auto;
+    transition: padding 0.6s ease-out;
 }
 .page .go-link:hover {
     border: 1px solid var(--col-primary);

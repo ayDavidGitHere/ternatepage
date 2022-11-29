@@ -5,13 +5,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
         <link rel="stylesheet" type="text/css" href="../assets/css/constant.css" />
         <link rel="stylesheet" type="text/css" href="../assets/css/page.css" />
         <style>
         </style>
     </head>
     <body class="page">
+        <section class="welcome-abs">
+            <threejs></threejs>
+        </section>
         <nav>
             <a class="nav-link">PLAYERS</a>
             <a class="nav-link">FIXTURES</a>
@@ -20,21 +23,45 @@
             <a class="nav-link">CLUB</a>
             <a class="nav-link">COUNTRY</a>
         </nav>
-        <section class="welcome">
+        <section class="sections welcome" app-page="welcome">
             <section class="text">
-                <p class="main-text" fnt-hF-6> Here is a particle head of your favourite skipper:  <span class="highlight" fnt-hF-6>OChoski</span>!</p>
-                <p class="sub-text" fnt-p4F> select another player to see </p>
+                <p class="main-text" fnt-hF> Here is a particle head of your favourite skipper:  <span class="highlight" fnt-hF-6>OChoski</span>!</p>
+                <p class="sub-text" fnt-p4F> select a transform to apply </p>
+                <ul class="transform-options" hidden>
+                    <li>scale<opt sel>auto</opt><opt>none</opt></li>
+                    <li>rotate<opt>auto</opt><opt>none</opt><opt sel>control</opt></li>
+                    <li>respawn<opt>start</opt></li>
+                </ul>
+                <style>
+                    ul.transform-options {font-size: 14px; list-style: none; padding:  5px 10px; display: block;}
+                    ul.transform-options[hidden] {display: none;}
+                    ul.transform-options li {margin: 5px auto;  border-radius: 2px; border-left: 2px solid white; padding: 0px 5px;}
+                    ul.transform-options li opt {padding: 2px 8px; border-radius: 5px; border: 1px solid white; margin: auto 5px}
+                    ul.transform-options li opt[sel]{ background-color: white;}
+                </style>
             </section>
             <section class="side2">
                 
             </section>
         </section>
-        <div class="go-link-cnt">
-            <a class="go-link" fnt-pF>about this competition!</a>
-        </div>
-        <section class="welcome-abs">
-            <threejs></threejs>
+        <section class="sections about" app-page="about" gone>
+            <div class="texts text-main1" fnt-hF-6> 
+                <p class="main-text" fnt-hF>We encompass the nature of interactive activity in response to the changing world</p>
+            </div>
+            <div class="texts text-next1" fnt-hF-6> 
+                <p class="main-text" fnt-hF>Created escapesfrom delusions, brnging changes to life</p>
+            </div>
+            <div class="texts text-next2" fnt-hF-6> 
+                <p class="main-text" fnt-hF>Your creative intelligence bypasses desired experience and subverts ownership</p>
+            </div>
+            <div class="texts text-last1" fnt-hF-6> 
+                <p class="main-text" fnt-hF>Own your craft and master your followership</p>
+            </div>
         </section>
+        
+        <div class="go-link-cnt">
+            <a class="go-link" goto="about" fnt-pF>about this convention</a>
+        </div>
     </body>
-    <script src="../dist/main.js"></script>
+    <script src="../dist/main.js"> </script>
 </html>
