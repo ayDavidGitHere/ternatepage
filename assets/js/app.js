@@ -1,13 +1,12 @@
-
+import AppState from "./appstate.js";
+import AppCss from "./appcss.js";
+import ThreeLogic from "./threelogic.js";
 function LoadElements(){
     this.canvasContainer = document.querySelector(".welcome-abs threejs");
     this.textMain1s = [...document.querySelectorAll(".sections.about .texts")]; 
     this.gotoLink = document.querySelector(".go-link-cnt .go-link");
     
 }
-import AppState from "./appstate.js"
-import ThreeLogic from "./threelogic.js"
-import AppCss from "./appcss.js"
 
 
 
@@ -82,4 +81,5 @@ function App(){
     
     
 }
+App();//calling app here rather than html else wepack would t do full compile
 export default App;

@@ -4,11 +4,10 @@ import * as THREE from 'three';//'../../node_modules/three/src/Three.js';
 import {OBJLoader} from '../../node_modules/three/examples/jsm/loaders/OBJLoader.js';
 import {GLTFLoader} from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLoader.js';
-let colors = {}
-colors.bg_secondary = window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary");
+let colors = { bg_secondary: window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary")};
 let assets_url = window.location.origin+"/assets";
 if(window.location.href.includes("ternatepage")) 
-assets_url = "https://aydavidgithere.github.io/ternatepage/assets"
+assets_url = "https://aydavidgithere.github.io/ternatepage/assets";
 let mousePos = {x:.5,y:.5};
 document.addEventListener('mousemove', function (event) {
     event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};
@@ -16,7 +15,6 @@ document.addEventListener('mousemove', function (event) {
 document.addEventListener('touchmove+', function (event) {
     event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};
 });
-
 
 
 
