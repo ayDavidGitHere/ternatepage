@@ -1,11 +1,11 @@
 //import * as THREE from 'three';
 //import * as THREE from '../../node_modules/three/build/three.js';
 import * as THREE from 'three';//'../../node_modules/three/src/Three.js';
-import {OBJLoader} from '../../node_modules/three/examples/jsm/loaders/OBJLoader.js';
-import {GLTFLoader} from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLoader.js';
-import {FontLoader} from '../../node_modules/three/examples/jsm/loaders/FontLoader.js';
-import {TextGeometry} from '../../node_modules/three/examples/jsm/geometries/TextGeometry.js';
+import {OBJLoader} from 'OBJLoader';
+import {GLTFLoader} from 'GLTFLoader';
+import {DRACOLoader} from 'DRACOLoader';
+import {FontLoader} from 'FontLoader';
+import {TextGeometry} from 'TextGeometry';
 let colors = { bg_secondary: window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary")};
 let assets_url = window.location.origin+"/assets";
 if(window.location.href.includes("ternatepage")) 
@@ -24,8 +24,8 @@ document.addEventListener('touchmove+', function (event) {
 function ThreeLogic(container) {
     let ctx = this;
     let camera, scene, renderer;
-    let lights, cubes, texts;
-    let cubeAnimation = ()=>{}, particleAniation = ()=>{}, enterSphereAnimation = false, enterParticleInSphereAnimation, animations = [];
+    let lights, balls, texts;
+    let ballsAnimation = ()=>{}, particleAniation = ()=>{}, enterSphereAnimation = false, enterParticleInSphereAnimation, animations = [];
     let particlesList = [];
     function LoadAssets(finished) {
         finished()
@@ -36,7 +36,7 @@ function ThreeLogic(container) {
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setClearColor(0x000000, 0);
+        //renderer.setClearColor(0x000000, 0);
         container.appendChild(renderer.domElement);
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 4000);
@@ -44,10 +44,11 @@ function ThreeLogic(container) {
         camera.lookAt(new THREE.Vector3(0, 20, -100));
         lights = 
             addLights();
-        //cubes = addCubes(scene);
+        //balls = addBalls(scene);
+        
         //texts = addTexts(scene)
-        ctx.particleManager = addParticles();
-        window.addEventListener('resize', onWindowResized, false);
+        //ctx.particleManager = addParticles();
+        window.addEventListener('resize', onWindowResized, false);  
     }
     function animate() {
         makeAnimation();
@@ -65,7 +66,7 @@ function ThreeLogic(container) {
     function addLights() {
     //mainLight
         let mainLightColor = "white";//"#ffffff"
-        let mainLight = new THREE.DirectionalLight( mainLightColor, 0.5);
+        let mainLight = new THREE.DirectionalLight( mainLightColor, 1);
         mainLight.position.set( 0, 50, 50 );
         mainLight.target.position.set( 0, -50, -50 );
         mainLight.castShadow = true;
@@ -100,53 +101,56 @@ function ThreeLogic(container) {
         spotLight.lookAt(new THREE.Vector3( 0, 50, 50));
         //scene.add(spotLight);
     //pointLight
-        let pointLight = new THREE.PointLight ("crimson", 10);
-        pointLight.position.set(0, 0, 0 );
+        let pointLight = new THREE.PointLight ("white", 10);
+        pointLight.position.set(-100, 100, 0 );
         pointLight.castShadow = true;
-        scene.add(pointLight);
+        //scene.add(pointLight);
         return {mainLight, pointLight};
     }
-    function addCubes() {
-        function makeCube(position, color) {
+    function addBalls() {
+        function makeBalls(position, color) {
             color = (new THREE.Color(color))
             color.setRGB((50+Math.random()*100)/255, (50+Math.random()*100)/255, (50+Math.random()*100)/255);
-            let material = new THREE.MeshLambertMaterial({
-                color: color,
+            color = (new THREE.Color(["#3f1edc", "#7744ee", "#dc1e3f"][Math.floor(Math.random()*3)]));
+            let material = new THREE.MeshPhongMaterial({
+                color: color, metal: true, shininess: 60,
             });
-            let cube = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), material);
-            scene.add(cube);
-            cube.position.x = position[0];
-            cube.position.y = position[1];
-            //cube.position.z = position[2];
-            cube.rotspeedx = 0.025+Math.random()*0.05;
-            return cube;
+            let ball = new THREE.Mesh(new THREE.SphereGeometry(15*(1+Math.random()*0.5), 20, 20), material);
+            scene.add(ball);
+            ball.position.x = position[0];
+            ball.position.y = position[1];
+            ball.position.z = position[2];
+            ball.rotspeedx = .025+Math.random()*0.05;
+            return ball;
         }
-        let cubes = [];
-        for (let i = 0; 9 > i; i++) {
-            cubes.push(makeCube([-150+Math.random()*150, 0+Math.random()*150, 0+Math.random()*50], 0x00BBBB));
+        let balls = [];
+        for (let i = 0; 3 > i; i++) {
+            balls.push(makeBalls([-150+Math.random()*300, 75+Math.random()*75, -100+i*40], 0x00BBBB));
+            //balls.push(makeBalls([0, 100, -100+i*40], 0x00BBBB));
         }
-        //cubeAnimation
-        cubeAnimation = ()=>{
-            cubes.map(cube=>{
-                cube.rotation.y += cube.rotspeedx;
-                cube.rotation.x += cube.rotspeedx;
-                cube.rotation.z += cube.rotspeedx;
-                if(!cube.destx || Math.random()<0.01){
-                    cube.destx = cube.position.x+100-Math.random()*200;
-                    cube.desty = cube.position.y+100-Math.random()*200;
-                    cube.destz = cube.position.z+100-Math.random()*200;
+        camera.position.set(0, 100, 250);
+        camera.target = new THREE.Vector3(0, 100, -100);
+        //ballsAnimation
+        ballsAnimation = ()=>{
+            balls.map(ball=>{
+                //ball.rotation.y += ball.rotspeedx;
+                //ball.rotation.x += ball.rotspeedx;
+                //ball.rotation.z += ball.rotspeedx; 
+                return;
+                if(!ball.destx || Math.random()<0.01){
+                    ball.destx = ball.position.x+100-Math.random()*200;
+                    ball.desty = ball.position.y+100-Math.random()*200;
+                    ball.destz = ball.position.z+100-Math.random()*200;
                 }
-                if(cube.position.x<cube.destx)cube.position.x += 0.1;
-                else cube.position.x -= 0.1;
-                if(cube.position.y<cube.desty)cube.position.y += 0.1;
-                else cube.position.y -= 0.1;
-                if(cube.position.z<cube.desty)cube.position.z += 0.1;
-                else cube.position.z -= 0.1;
+                if(ball.position.x<ball.destx)ball.position.x += 0.1;
+                else ball.position.x -= 0.1;
+                if(ball.position.y<ball.desty)ball.position.y += 0.1;
+                else ball.position.y -= 0.1;
+                if(ball.position.z<ball.desty)ball.position.z += 0.1;
+                else ball.position.z -= 0.1;
             });
-            camera.position.set(0, 100, 100);
-            camera.target = new THREE.Vector3(0, -100, -100);
         }
-        return cubes;
+        return balls;
     }
     function addTexts() {
         let material = new THREE.MeshLambertMaterial({
@@ -419,7 +423,7 @@ function ThreeLogic(container) {
         return {initparticles, removeAllParticles, addParticle, transformParticle, enterSphere, enterParticleInSphere}
     }
     function makeAnimation(){
-        cubeAnimation();
+        ballsAnimation();
         particleAniation();
         animations.map(animation=>{
             animation();

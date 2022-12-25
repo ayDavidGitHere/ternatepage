@@ -1,3 +1,6 @@
+html{
+  //width: 100%; //height: 100%; //overflow: auto;
+}
 body.page{
     width: 100%; height:  100%;
     background: var(--bg-primary);
@@ -37,7 +40,7 @@ body.page{
 
 
 .page .sections {
-    overflow-y: hidden;
+    overflow-y: hidden; z-index: -1;
 }
 .page .sections[gone]{
     height: 0%;
@@ -50,6 +53,7 @@ WELCOME
 .page .welcome {
     display: flex; width: 100%; height: 100%; 
     position: absolute;
+    opacity: 1;    transition: opacity 500ms ease;
 }
 .page .welcome .text {
     width: 50%; display: block; box-sizing: border-box;
@@ -60,17 +64,62 @@ WELCOME
     width: 50%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
 }
 .page .welcome .main-text {
-    font-size: 50px; text-transform: capitalize;
+    font-size: 40px; text-transform: uppercase;
     color: var(--col-secondary);  
 }
 .page .welcome .main-text span.highlight{
     text-transform: uppercase;
     color: var(--col-primary);
 }
+.page .welcome .main-text x {
+  font-family: inherit;
+  transition: opacity 500ms ease;
+}
+.page .welcome .main-text x:focus, x:hover{
+   opacity: 0.2;
+}
+.page .welcome .main-text x[blur]{
+   opacity: 0.29; //color: var(--col-primary);
+}
+
 .page .welcome .sub-text {
     font-size: 22px; 
     color: var(--col-primary);
 }
+
+
+
+
+
+
+.page .sections.welcome {
+    opacity: 1;  transition: opacity 1s ease-out;
+}
+.page .sections.about {
+    opacity: 1; transition: opacity 1s ease-out;
+}
+.page .welcome-abs threejs{
+    opacity: 1;  transition: opacity 1s ease-out;
+}
+
+
+
+.page[currentview="welcome"] .sections.welcome {
+     opacity: 1; transition-delay: 1s;
+}
+.page[currentview="about"] .sections.welcome {
+     opacity: 0;
+}
+.page[currentview="welcome"] .sections.about {
+     opacity: 0;
+}
+.page[currentview="about"] .sections.about {
+     opacity: 1; transition-delay: 1s;
+}
+.page[statechanging="yes"] .welcome-abs threejs{
+     opacity: 0;
+}
+
 
 
 
@@ -92,11 +141,23 @@ ABOUT
 .page .about .texts {
     width: 100%; display: block; box-sizing: border-box;
     padding-top: 150px; padding-bottom: 100px;
-    padding-left: 50px; margin: 0;
+    padding-left: 50px; margin: 0;  
+    transition: color, transform 6s ease;
+    color: var(--col-secondary);  
 }
+.page .about .texts[rot="180"]{;
+  transform: perspective(1000px) rotateY(180deg); 
+}
+.page .about .texts[rot="0"]{
+  transform: perspective(1000px) rotateY(0deg);
+  color: var(--col-primary);  
+}
+.page .about .texts[rot="0"][zoom]{
+  transform: perspective(1000px) rotateY(0deg) scale(10.5, 10.5);
+}
+
 .page .about .texts .main-text {
     font-size: 35px; text-align: center;
-    color: var(--col-secondary);  
     transition: line-height 1500ms ease;
     line-height: 150px;
 }
@@ -129,6 +190,17 @@ ABOUT
 }
 
 
+
+.page .about .texts.text-next3 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-bottom: 150px; 
+}
+.page .about .texts.text-next3 .main-text {
+    text-align:  center;
+}
+
+
+
 .page .about .texts.text-last1 {
     padding-left: 25%; padding-right: 25%; 
     margin-bottom: 150px; 
@@ -136,6 +208,31 @@ ABOUT
 .page .about .texts.text-last1 .main-text {
     text-align:  center;
 }
+
+
+.page .boxs{ 
+  width: 100%; height: 100%; 
+  background-color: var(--col-primary); color: var(--col-secondary);
+  text-align: center; align-items: middle;
+  font-size: 60px; font-family: hF; //line-height: 100px;
+  box-sizing: border-box; padding-left: 30%; padding-right: 30%;
+  padding-top: 50px;
+  transition: transform 2s ease;
+  transform:  rotateY(0deg);
+}
+
+.page .boxs[rot]{
+  transform: perspective(1000px) rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -153,8 +250,10 @@ ABOUT
     width: 100%; 
     text-align: center; position: absolute; bottom: 10px;
     pointer-events:  none;
+  z-index: 100;
 }
 .page .go-link {
+  z-index: 100;
     display: inline-block;
     font-size: 20px; 
     border: 1px solid var(--col-secondary); border-radius: 30px;
@@ -162,13 +261,14 @@ ABOUT
     color: var(--col-secondary);
     text-transform:  uppercase;
     text-align:  center;
-    background-color: var(--bg-primary);
+    background-color: var(--col-secondary-trsp);
     pointer-events: auto;
     transition: padding 0.6s ease-out;
 }
 .page .go-link:hover {
     border: 1px solid var(--col-primary);
     color: var(--col-primary);
+    background-color: var(--bg-secondary-trsp);
     padding-right: 50px; padding-left: 50px;
 }
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--http://100.115.92.2:7001/newyear.html?by=Pablo&to=EXCEL-->
+<html lang="en">
+    <head>
+        <title>AgeOfPage</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon.png">
+        <link rel="stylesheet" type="text/css" href="./assets/css/constant.css" />
+        <link rel="stylesheet" type="text/css" href="./assets/css/page.css" />
+        <style>
+        </style>
+        <script src="./assets/js/lib/CodeHelps.js"> </script>
+        <script src="./assets/js/lib/CDraw.js"> </script>
+    </head>
+    <body class="page">
+        <section class="bg cdraw"></section>
+        <section class="bg three"></section>
+        <section class="bg html">
+            <p class="text-to" tx-center>to</p>
+            <p class="rot-text to"></p>
+            <p class="text-by" tx-center>by <span class="by"></span></p>
+        </section>
+    </body>
+    <style>
+  body.page{
+    width: 100%; height:  100%;
+    background: var(--bg-primary);
+    color: var(--col-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+body.page .bg{
+  width: 100%; height: 100%; position: absolute; top: 0%; left: 0%;
+}
+body.page .bg.cdraw{
+  
+}
+
+
+body.page .bg.html .rot-text {
+  font-size: 50px; text-align: center;
+  font-family: leaguespartanbold; color: white;
+  transition: transform 2s ease;
+  transform: rotateY(0deg); 
+}
+body.page .bg.html .rot-text.to {
+}
+body.page .bg.html .rot-text.by {
+  margin-top: 5%; 
+}
+
+body.page .bg.html .rot-text[rot="left"]{
+  transform: perspective(1000px) rotateY(60deg);
+}
+
+body.page .bg.html .rot-text[rot="right"]{
+  transform: perspective(1000px) rotateY(-60deg);
+}
+
+body.page .bg.html .text-to {
+  font-size: 30px; text-align: center;
+  font-family: iFk; color: crimson;
+  margin-top: 40%;
+}
+
+body.page .bg.html .text-by {
+  font-size: 30px; text-align: center;
+  font-family: iFk; color: crimson;
+  margin-top: 2%;
+}
+
+
+
+
+    </style>
+    <script type="importmap">
+        {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js",
+            "OBJLoader": "./node_modules//three/examples/jsm/loaders/OBJLoader.js",
+            "GLTFLoader": "./node_modules//three/examples/jsm/loaders/GLTFLoader.js",
+            "DRACOLoader": "./node_modules//three/examples/jsm/loaders/DRACOLoader.js",
+            "FontLoader": "./node_modules//three/examples/jsm/loaders/FontLoader.js",
+            "TextGeometry": "./node_modules/three/examples/jsm/geometries/TextGeometry.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import App from "./assets/js/newyear/app.js";
+        //App();
+    </script>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GAME</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon.png">
+        <link rel="stylesheet" type="text/css" href="./assets/css/constant.css" />
+        <link rel="stylesheet" type="text/css" href="./assets/css/page.css" />
+        <style>
+        </style>
+    </head>
+    <body class="page">
+        <threejs></threejs>
+    </body>
+    <script type="importmap">
+        {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js",
+            "OBJLoader": "./node_modules//three/examples/jsm/loaders/OBJLoader.js",
+            "GLTFLoader": "./node_modules//three/examples/jsm/loaders/GLTFLoader.js",
+            "DRACOLoader": "./node_modules//three/examples/jsm/loaders/DRACOLoader.js",
+            "FontLoader": "./node_modules//three/examples/jsm/loaders/FontLoader.js",
+            "TextGeometry": "./node_modules/three/examples/jsm/geometries/TextGeometry.js"
+            }
+        }
+    </script>
+    <script type="module">
+        import Game from "./assets/js/Game/index.js";
+        //Game();
+    </script>
+        <style>
+            .page {
+                background-color: yellow !important; 
+                width: 100%; height: 100%;
+            }
+            threejs {
+                width: 100%; position: absolute; height: 100%;
+                box-sizing: border-box;
+                top: 0%; left: 0%; 
+                display: block; background-color: black;
+            }
+        </style>
+</html>

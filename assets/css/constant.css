@@ -12,6 +12,8 @@
     --col-primary:#dc1e3f;
     --col-secondary:#ffffff;
     --col-tertiary:#000817;
+    --bg-secondary-trsp:#dc1e3f33;
+    --col-secondary-trsp:#ffffff33;
     
     /*
     --bg-primary:#fffadd;
@@ -19,6 +21,8 @@
     --col-primary:#000817;
     --col-secondary:#dc1e3f;
     --col-tertiary:#fffadd;
+    --bg-secondary-trsp:#dc1e3f33;
+    --col-secondary-trsp:#ffffff33;
     */
     
     /*
@@ -28,6 +32,8 @@
     --col-primary:#1edc3f;
     --col-secondary:#ffffff;
     --col-tertiary:#000817;
+    --bg-secondary-trsp:#1edc3f33;
+    --col-secondary-trsp:#ffffff33;
     */
     
     /*
@@ -36,7 +42,9 @@
     --bg-secondary:#1e3fdc;
     --col-primary:#1e3fdc;
     --col-secondary:#ffffff;
-    --col-tertiary:#000817;
+    --col-tertiary:#00081;
+    --bg-secondary-trsp:#1e3fdc33;
+    --col-secondary-trsp:#ffffff33;
     */
     
     
@@ -80,6 +88,27 @@
     src: url("../fonts/nb.ttf");
     font-family: nb;
 }
+@font-face{
+    src: url("../fonts/Autumn.ttf");
+    font-family: iF;
+}
+@font-face{
+    src: url("../fonts/Woodwork.ttf");
+    font-family: iFi;
+}
+@font-face{
+    src: url("../fonts/superstar.ttf");
+    font-family: iFj;
+}
+@font-face{
+    src: url("../fonts/autumnin.ttf");
+    font-family: iFk;
+}
+
+
+
+
+
 
 
 [fnt-hF]{
