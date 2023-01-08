@@ -8,7 +8,16 @@ function AppCss(tms, threelogic){
             //if(tm.getBoundingClientRect().top+tm.clientHeight<=0) { tm.removeAttribute("inscreen", "yes"); }
             tm.inscreen = tm.getAttribute("inscreen")?true:false;
             
-            if(ind==1 && tm.inscreen && !tm.justoccured){ 
+            
+            if(ind==2 && tm.inscreen && !tm.justoccured){ 
+                threelogic.particleManager.moveSphere(25);
+                tm.justoccured = true;
+            }
+            if(ind==2 && tm.inscreen && !tm.justoccured){ 
+                threelogic.particleManager.moveSphere(-25);
+                tm.justoccured = true;
+            }
+            if(ind==3 && tm.inscreen && !tm.justoccured){ 
                 threelogic.particleManager.enterSphere();
                 tm.justoccured = true;
             }
@@ -16,7 +25,8 @@ function AppCss(tms, threelogic){
                 //threelogic.particleManager.enterParticleInSphere();
                 tm.rotateAndZoom();
                 tm.justoccured = true;
-                tm.parentNode.style.overflowY = "hidden";
+                //tm.parentNode.style.overflowY = "hidden";
+                document.querySelector(".page .boxs").style.display = "none";
                 setTimeout(function(){
                     tm.parentNode.style.overflowY = "scroll";
                     document.querySelector(".page .boxs").style.display = "block";
@@ -38,7 +48,7 @@ function AppCss(tms, threelogic){
         let tm = document.querySelector(".page .about .texts.text-last1");
         tm.setAttribute("rot", "0");
         setTimeout(function(){
-            tm.setAttribute("zoom", "");
+            //tm.setAttribute("zoom", "");
         }, 4000)
     }
     

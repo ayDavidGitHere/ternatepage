@@ -2,6 +2,7 @@
 //import * as THREE from '../../node_modules/three/build/three.js';
 import * as THREE from 'three';//'../../node_modules/three/src/Three.js';
 import {OBJLoader} from '../../node_modules/three/examples/jsm/loaders/OBJLoader.js';
+import {FBXLoader} from '../../node_modules/three/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from '../../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLoader.js';
 import {FontLoader} from '../../node_modules/three/examples/jsm/loaders/FontLoader.js';
@@ -25,7 +26,8 @@ function ThreeLogic(container) {
     let ctx = this;
     let camera, scene, renderer;
     let lights, cubes, texts;
-    let cubeAnimation = ()=>{}, particleAniation = ()=>{}, enterSphereAnimation = false, enterParticleInSphereAnimation, animations = [];
+    let cubeAnimation = ()=>{}, moveSphereAnimation = false, particleAniation = ()=>{};
+    let enterSphereAnimation = false, enterParticleInSphereAnimation, animations = [];
     let particlesList = [];
     function LoadAssets(finished) {
         finished()
@@ -193,7 +195,7 @@ function ThreeLogic(container) {
         function initparticles(){
               // particles
                 p_geom = new THREE.BufferGeometry();
-                p_material = new THREE.PointsMaterial({size: 0.55});
+                p_material = new THREE.PointsMaterial({size: 0.355});
                 p = new THREE.Points(
                   p_geom,
                   p_material
@@ -223,8 +225,8 @@ function ThreeLogic(container) {
                     if(!animopts.autopendulumscale) return;
                     //scale
                     py = p.scale.y;
-                    if(sy==null) sy = -0.1/10;
-                    sy = pendulum(sy,py,-0.1/10,+0.1/10,100*0.1/10,200*0.1/10);
+                    if(sy==null) sy = -0.2/10;
+                    sy = pendulum(sy,py,-0.2/10,+0.2/10,100*0.1/10*6,200*0.1/10*6);
                     p.scale.x = p.scale.y = p.scale.z += sy;
                 })();
                 ;(function (){
@@ -246,25 +248,33 @@ function ThreeLogic(container) {
               
               
         }
-        function doparticles( object, parameters = {}, animsettings={}) {
-              
+        function doparticles( object, parameters = {}, animsettings = {}) {
+              //scene.add(object)
               p_material = p.material;
               p_geom = p.geometry;
-              p_geom.verticespoints = [];
-              p_geom.vertices = null;
               p.rotation.x = p.rotation.y = p.rotation.z = 0;
               p.scale.x = p.scale.y = p.scale.z = 1;
                 
+                
+             
+              let verticeslist = []; let vertices = null;
+              let verticestotal_length = 0; let verticestotal_length2 = 0; let vind = 0;
               console.log("doing particles from object");
               if(object.traverse !== undefined)
-              object.traverse( function ( child ) { 
-                 if ( child instanceof THREE.Mesh || child.isMesh ) {
+              object.traverse( function ( child ) { //if(vind!=5) return; 
+                 if ( child instanceof THREE.Mesh || child.isMesh) {
                     var scale = 8;
-                    p_geom.vertices = child.geometry.getAttribute("position").array; 
-                    //console.log(p_geom.vertices)
+                    verticeslist.push(child.geometry.getAttribute("position").array);
+                    verticestotal_length += child.geometry.getAttribute("position").array.length; vind++;
                  }
               });
-              
+              vertices = new Float32Array(verticestotal_length);
+              verticeslist.map(v=>{
+                  vertices.set(v, verticestotal_length2);
+                  verticestotal_length2 += v.length; console.log(v.length, verticestotal_length2)
+              })
+              p_geom.vertices = vertices;//list[3];
+              console.log(verticeslist.length)
               
               
               
@@ -276,7 +286,7 @@ function ThreeLogic(container) {
               p.position.set(p_postn[0], p_postn[1], p_postn[2]);
               p.scale.x = p.scale.y = p.scale.z += 0.75;
               scene.add(p);
-              particlesList.push(p);
+              particlesList.push(p);// p = object;
               //animating
               p.animsettings = animsettings;
               if(!p.animsettings.autopendulumscale){   p.scale.x = p.scale.y = p.scale.z += 0.25;  }
@@ -286,7 +296,7 @@ function ThreeLogic(container) {
         function getRandomVertex(geometry){
             let positionAttribute = geometry.getAttribute( 'position' );
             let vertex = new THREE.Vector3();
-            let ind = Math.floor(Math.random()*positionAttribute.count);
+            let ind = Math.floor(Math.random()*positionAttribute.count); console.log(positionAttribute, ind)
             vertex.fromBufferAttribute( positionAttribute, ind); // read vertex
             // do something with vertex
             //positionAttribute.setXYZ( i, vertex.x, vertex.y, vertex.z ); // write coordinates back
@@ -302,7 +312,9 @@ function ThreeLogic(container) {
            var manager = new THREE.LoadingManager();
            manager.onProgress = function ( item, loaded, total ) {};
            var loader = new OBJLoader( manager );
-           loader.load(assets_url+'/canvas/models/head.obj', function(object){  doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1}) });
+           //var loader = new FBXLoader( manager );
+           loader.load(assets_url+'/canvas/models/controller.obj', function(object){  doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1}) });
+           //loader.load(assets_url+'/canvas/models/game controller.fbx', function(object){  doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1}) });
         } 
         let spheregeometry = function() {   
             let material = new THREE.MeshLambertMaterial({
@@ -324,7 +336,8 @@ function ThreeLogic(container) {
             text.position.x = 0;
             text.position.y = 100;
             text.position.z = 50;
-            doparticles(text, {postn: [0,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]})
+            //doparticles(text, {postn: [-15,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]});
+            doparticles(text, {postn: [+0,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]})
         } ;
         let textgeometry = function() {   
             const loader = new FontLoader();
@@ -374,6 +387,17 @@ function ThreeLogic(container) {
             }
             animations.push(enterSphereAnimation);
         }
+        let moveSphere = function(limit){
+            if(!camera.moveSphere) camera.moveSphere = false;
+            camera.moveSphere = !camera.moveSphere;
+            
+            //if(!moveSphereAnimation) return;
+            moveSphereAnimation = function(){
+                if(p.position.x>limit-1 && p.position.x<limit+1) return;
+                p.position.x += (p.position.x>limit?-1:1)/5; 
+            }
+            animations.push(moveSphereAnimation);
+        }
         let enterParticleInSphere = function(){
             if(!camera.enterParticleInSphere) camera.enterParticleInSphere = false;
             camera.enterParticleInSphere = !camera.enterParticleInSphere;
@@ -416,7 +440,7 @@ function ThreeLogic(container) {
             if(typeto=="head") headgeometry(true);
         }
         initparticles();
-        return {initparticles, removeAllParticles, addParticle, transformParticle, enterSphere, enterParticleInSphere}
+        return {initparticles, removeAllParticles, addParticle, transformParticle, enterSphere, enterParticleInSphere, moveSphere}
     }
     function makeAnimation(){
         cubeAnimation();

@@ -153,7 +153,7 @@ ABOUT
   color: var(--col-primary);  
 }
 .page .about .texts[rot="0"][zoom]{
-  transform: perspective(1000px) rotateY(0deg) scale(10.5, 10.5);
+  transform: perspective(1000px) rotateY(0deg) scale(40.5, 40.5);
 }
 
 .page .about .texts .main-text {

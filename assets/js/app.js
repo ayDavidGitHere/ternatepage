@@ -58,7 +58,7 @@ function App(){
     let page = loadElements.wholePage;
     function welcomepage(e){
          page.setAttribute("currentview", "welcome");
-         gtl.setAttribute("goto", "about");  gtl.innerText = "SEE OUR PARTICLES" ;
+         gtl.setAttribute("goto", "about");  gtl.innerText = "BROWSE GAMES" ;
          threelogic.particleManager.removeAllParticles();
          threelogic.particleManager.addParticle("head");
     }
