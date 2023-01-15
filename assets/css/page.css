@@ -71,12 +71,12 @@ WELCOME
     opacity: 1;    transition: opacity 500ms ease;
 }
 .page .welcome .text {
-    width: 50%; display: block; box-sizing: border-box;
+    width: 80%; display: block; box-sizing: border-box;
     padding-top: 150px; padding-bottom: 100px;
     padding-left: 50px;
 }
 .page .welcome .side2 {
-    width: 50%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
+    width: 20%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
 }
 .page .welcome .main-text {
     font-size: 50px; text-transform: uppercase;
@@ -265,10 +265,10 @@ ABOUT
     width: 100%; 
     text-align: center; position: absolute; bottom: 10px;
     pointer-events:  none;
-  z-index: 100;
+  z-index: 100; 
 }
-.page .go-link {
-  z-index: 100;
+.page .go-link-cnt .go-link {
+    z-index: 100;
     display: inline-block;
     font-size: 20px; 
     border: 1px solid var(--col-secondary); border-radius: 30px;
@@ -278,14 +278,29 @@ ABOUT
     text-align:  center;
     background-color: var(--col-secondary-trsp);
     pointer-events: auto;
-    transition: padding 0.6s ease-out;
+    transition: padding 0.6s ease-out, opacity 1s ease-out; opacity: 0;
 }
+.page .go-link-cnt .go-link[opener]{
+    display: inline-block; opacity: 1;
+    pointer-events: auto;
+}
+.page .go-link-cnt:hover .go-link{
+    display: inline-block; opacity: 1;
+    pointer-events: auto;
+}
+
+
 .page .go-link:hover {
     border: 1px solid var(--col-primary);
     color: var(--col-primary);
     background-color: var(--bg-secondary-trsp);
     padding-right: 50px; padding-left: 50px;
 }
+
+
+
+
+
 
 .page .welcome-abs{
     width: 100%; position: absolute; height: 100%; box-sizing: border-box;

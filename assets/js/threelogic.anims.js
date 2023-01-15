@@ -362,9 +362,9 @@ function Start(container, sizing = {}) {
             	const geometry = new TextGeometry( 'Hekk', {
             		font: font,
             		size: 16,
-            		height: 1,
-            		curveSegments: 12,
-            		//bevelEnabled: true,
+            		height: 5,
+            		curveSegments: 5,
+            		bevelEnabled: true,
             		bevelThickness: 2,
             		bevelSize: 0.8,
             		bevelOffset: 0,
@@ -373,9 +373,18 @@ function Start(container, sizing = {}) {
                 let material = new THREE.MeshLambertMaterial({color: 0x00bb88,});
                 let text = new THREE.Mesh(geometry, material);
                 scene.add(text)
-            	//doparticles(text, {postn: [0,+15.0,20], color: "green"}, {autorotate: [0.0521,0,0.025]})
+            	doparticles(text, {postn: [0,+15.0,20], color: "green"}, {autorotate: [0.0521,0,0.025]})
             });
         }
+        let lightninggeometry = function() {   
+           var manager = new THREE.LoadingManager();
+           manager.onProgress = function ( item, loaded, total ) {};
+           var loader = null;
+           loader = new OBJLoader( manager );
+           //loader = new FBXLoader( manager );
+           loader.load(assets_url+'/canvas/models/gun.obj', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 1, mouserotate: 1}) });
+           //loader.load(assets_url+'/canvas/models/phazzzer_skull.FBX', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 3, mouserotate: 1}) });
+        } ;;
         let planeparticle = function() {
            let p = particlesList[0];
            let p_geom = p.geometry;
@@ -452,6 +461,7 @@ function Start(container, sizing = {}) {
             if(typeto=="head") headparticle();
             if(typeto=="circle") circlegeometry();
             if(typeto=="teapot") teapotgeometry();
+            if(typeto=="lightning") lightninggeometry();
         }
         let transformParticle = function(typeto){
             if(typeto=="plane") planeparticle(true);
@@ -482,16 +492,18 @@ function Start(container, sizing = {}) {
 
 
 function setAnims(){
-    document.addEventListener("DOMContentLoaded", function(){
-        [...document.querySelectorAll(":not([gone]) three-anim")]
-        .map(container=>{ console.log("height: ",container.parentNode.clientHeight);
-            let draw  = container.getAttribute("draw"); console.log(draw)
+        [...document.querySelectorAll(".page .sections[app-page]:not([gone]) three-anim")]
+        .map(container=>{
+
+            if(container.getAttribute("loaded") && container.getAttribute("reloadable")==undefined) return;
+            container.setAttribute("loaded", "true");
+            console.log("setanim.. height: ", container.parentNode.clientHeight);
+            let draw  = container.getAttribute("draw"); console.log(draw);
             if(!draw || draw=="") return;
             let start = new Start(container, {clientHeight: container.parentNode.parentNode.clientHeight});
             start.particleManager.addParticle(draw);
         });
-    });
 }//EO setAnims
 let threeanims = {setAnims};
-setAnims();
+document.addEventListener("DOMContentLoaded", function(){threeanims.setAnims();});
 export default threeanims;
