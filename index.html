@@ -17,23 +17,26 @@
         <section class="welcome-abs">
             <threejs></threejs>
         </section>
-        <nav>
-            <a class="nav-link">ABOUT</a>
+
+
+        <section class="sections splasher" app-page="splasher">
+          
+        </section>
+        <section class="sections welcome" app-page="welcome" gone>
+            <div class="go-link-cnt">
+                <a class="go-link" goto="gartpreview" fnt-pF>SEE OUR PARTICLES</a>
+            </div>
+            <!--nav>
+            <!--a class="nav-link">ABOUT</a>
             <a class="nav-link">GAMES</a>
             <a class="nav-link">PAGES</a>
             <a class="nav-link">EFFECTS</a>
-        </nav>
-        
-        <div class="go-link-cnt">
-            <a class="go-link" goto="about" fnt-pF>SEE OUR PARTICLES</a>
-        </div>
-        <section class="sections welcome" app-page="welcome">
-          
+           </nav-->
             <section class="text">
-                <p class="main-text" fnt-hF> 
-                  <x>CHECK</x> <x>OUT</x> <x>AMAZING</x> <x>WEB</x> <x>GAMES</x> <x>MADE</x> <x>FOR</x> <x>YOU</x> <x>BY</x> 
-                  <span fnt-hF><br> AYDAVID&nbsp;</span></p>
-                <p class="sub-text" fnt-p4F> github@aydavidgithere</p>
+                <p class="main-text" fnt-hF-7> 
+                  <x>Experience</x>  <x>Javascript</x> <x>Canvas</x> <x>In</x>  <x>Generative Art</x>  <x>and</x>  <x>Games</x> <x>BY</x>
+                  <span fnt-hF-7><br> AYDAVID&nbsp;</span></p>
+                <p class="sub-text" fnt-p4F> Canvas animations and games that will blow your mind</p>
                 <ul class="transform-options" hidden>
                     <li>scale<opt sel>auto</opt><opt>none</opt></li>
                     <li>rotate<opt>auto</opt><opt>none</opt><opt sel>control</opt></li>
@@ -71,6 +74,44 @@
               
             </div>
         </section>
+        <section class="sections gartpreview" app-page="gartpreview" gone>
+          <div class="top">
+            <div class="title-header" fnt-hF> GENERATIVE ARTS</div>
+            <div class="story-text" fnt-pF>  Immerse yourself in the possiblities of Javascript canvas. Check out plethora of generative art </div>
+          </div>
+          <div class="previews">
+            <preview-box>
+              <three-anim draw="circle"></three-anim>
+              <cdraw-anim ></cdraw-anim>
+            </preview-box>
+            <preview-box>
+              <three-anim draw="head"></three-anim>
+            </preview-box>
+            <preview-box>
+              <three-anim draw="teapot"></three-anim>
+            </preview-box>
+          </div>
+        </section>
+        <link rel="stylesheet" type="text/css" href="./assets/css/section-gart.css" />
+        <section class="sections gamepreview" app-page="gamepreview" fnt-pF gone>
+          <div class="title-header" fnt-hF> GAMES</div>
+          <div class="down">
+            <div class="story-cnt">
+                <story1 fnt-pF>WEB. GAMING. JAVASCRIPT.</story1><br>
+                <story2 fnt-pF>Experience Javascript games with stunning graphics and engaging gameplay.<br> Explore now and find your next favorite game!</story2><br><br>
+                <!--story-but fnt-p2F>Xperience</story-but-->
+            </div>
+            <div class="t3d-cnt">
+                <three-anim draw="circle"></three-anim>
+                <tag>PLAY</tag>
+            </div>
+          </div>
+        </section>
+        <link rel="stylesheet" type="text/css" href="./assets/css/section-gamepreview.css" />
+        
+        
+        
+        
         
     </body>
     <script type="importmap">
@@ -85,3 +126,20 @@
         //App();
     </script>
 </html>
+<!-- 
+Experience the thrill of interactive gameplay"
+"Bringing imagination to life with stunning animations"
+"Push the boundaries of what's possible with cutting-edge technology"
+"Immerse yourself in our worlds"
+"Elevating the art of gaming to new heights"
+"Revolutionizing the way we play"
+"Where creativity meets technology"
+"Bringing characters to life"
+"Where the game meets the player"
+"Leading the way in game development"
+"Join us on a journey of discovery"
+"Canvas animations and games that will blow your mind"
+"Unleashing the power of imagination"
+"Where gaming meets the future"
+"Creating a new reality through gaming experience"
+-->

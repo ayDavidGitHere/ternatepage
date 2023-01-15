@@ -2,6 +2,7 @@ import AppState from "./appstate.js";
 import AppCss from "./appcss.js";
 import ThreeLogic from "./threelogic.js";
 import cdrawlogic from "./cdrawlogic.js";
+import threeanims from "./threelogic.anims.js";
 function LoadElements(){
     this.canvasContainer = document.querySelector(".welcome-abs threejs");
     this.textMain1s = [...document.querySelectorAll(".sections.about .texts")]; 
@@ -58,7 +59,7 @@ function App(){
     let page = loadElements.wholePage;
     function welcomepage(e){
          page.setAttribute("currentview", "welcome");
-         gtl.setAttribute("goto", "about");  gtl.innerText = "BROWSE GAMES" ;
+         gtl.setAttribute("goto", "gartpreview");  gtl.innerText = "BROWSE GAMES" ;
          threelogic.particleManager.removeAllParticles();
          threelogic.particleManager.addParticle("head");
     }
@@ -67,8 +68,20 @@ function App(){
         threelogic.particleManager.removeAllParticles();
         threelogic.particleManager.addParticle("shapes");
     }
+    async function gartpreviewpage(e){
+        gtl.setAttribute("goto", "welcome");  gtl.innerText = "SEE FULL LIST";
+        threelogic.particleManager.removeAllParticles();
+    }
+    async function gamepreviewpage(e){
+        gtl.setAttribute("goto", "welcome");  gtl.innerText = "SEE FULL LIST";
+        threelogic.particleManager.removeAllParticles();
+    }
     let appState = new AppState();
-    appState.showpage("welcome", function(){    welcomepage();     });
+    let showpage = (new URL(window.location).searchParams.get("page") || "" ).toLowerCase(); console.log("showpage", showpage)
+    if(showpage=="welcome" || showpage=="") appState.showpage("welcome", function(){    welcomepage();     });
+    if(showpage=="about") appState.showpage("about", function(){    aboutpage();     });
+    if(showpage=="gartpreview") appState.showpage("gartpreview", function(){    gartpreviewpage();     });
+    if(showpage=="gamepreview") appState.showpage("gamepreview", function(){    gamepreviewpage();     });
     gtl.onclick = async function(e){
         page.setAttribute("statechanging", "yes");
         let gotopage = gtl.getAttribute("goto");
@@ -80,10 +93,24 @@ function App(){
             page.setAttribute("currentview", "welcome");
             await sleep(1000);
         }
-
+        if(gotopage == "gartpreview") { 
+            page.setAttribute("currentview", "gartpreview");
+            await sleep(1000);
+        }
+        if(gotopage == "gamepreview") { 
+            page.setAttribute("currentview", "gamepreview");
+            await sleep(1000);
+        }
+        
+        
+        
+        
+        
         appState.showpage(gotopage, function(){   
             if(gotopage == "about") aboutpage(e);
             if(gotopage == "welcome") welcomepage(e);
+            if(gotopage == "gartpreview") gartpreviewpage(e);
+            if(gotopage == "gamepreview") gamepreviewpage(e);
             page.setAttribute("statechanging", "no");
         });
     }

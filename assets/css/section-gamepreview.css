@@ -1,0 +1,102 @@
+
+.page .gamepreview {
+    font-size: 100px; 
+    display: block; width: 100%; height: 100%; 
+    position: absolute; overflow-y: scroll;
+}   
+.page .gamepreview .title-header {
+      font-size: 55.0%;  text-align: center; height: 20%; box-sizing: border-box; overflow: hidden; color: var(--col-secondary); margin-top: 5%; line-height: 70px;
+      transition: line-height 1s ease-in;
+}
+.page .gamepreview[gone] .title-header {
+       line-height: 300px;
+}
+.page .gamepreview .down {
+      width: 100%; display: flex; justify-content: space-between; box-sizing: border-box; //background: green;
+      height: 50%;  opacity: 1; flex-flow: row wrap;
+      --d: 2500ms;
+    	--angle: 90deg;
+    	--gradX: 100%;
+    	--gradY: 50%;
+    	--c1: var(--col-primary);
+    	--c2: var(--bg-secondary-trsp);
+}
+.page .gamepreview .down .story-cnt{
+      display: inline-block; max-width: 50%; height: 100%; overflow-x: hidden; overflow: hidden;padding: 30px;
+      line-height: 35px; padding-right: 50px; padding-left: 80px; box-sizing: border-box;
+      padding-top: 30px; //transition: padding-top 1s ease-in;
+}
+.page .gamepreview[gone] .down .story-cnt{
+      padding-top: 100%; 
+}
+.page .gamepreview .down .story-cnt story1{
+      font-size: 40%; font-size: bold; margin-bottom: 30px; display: inline-block; 
+      color: var(--col-secondary); word-spacing: 10px; opacity: 1;transition: word-spacing 1s ease, opacity 1s ease; transition-delay: 2s;
+}
+.page .gamepreview[gone] .down .story-cnt story1{
+      word-spacing: -100px; opacity: 0.002;
+}
+.page .gamepreview .down .story-cnt story2{
+      font-size: 22%; margin-bottom: 30px; display: inline-block; line-height: 42px; transition: line-height 1.3s ease-out; transition-delay: 3s;
+}
+.page .gamepreview[gone] .down .story-cnt story2{
+      line-height: 800px;
+}
+.page .gamepreview .down .story-cnt story-but{
+      font-size: 25%; border-radius: 50px; padding: 15px 60px;
+      border: 1px dashed var(--col-secondary); color: var(--col-secondary); margin-top: 40px;
+      //border-right: transparent; //border-bottom: transparent;
+      text-transform: lowercase;
+}
+
+.page .gamepreview .down .t3d-cnt{
+     width: 50%; border-radius: 20px;
+      border: 1px solid var(--col-primary); color: var(--col-secondary);
+      border-right: transparent;  position: relative;
+      transform: perspective(500px) rotateY(-20deg);
+      transition: transform 1s ease-out;
+      box-sizing: border-box; 
+}
+.page .gamepreview .down .t3d-cnt:hover{
+      transform: perspective(500px) rotateY(0deg);
+}
+.page .gamepreview .down .t3d-cnt three-anim{
+    position: absolute; display: block; width: 100%; height: 100%;
+}
+.page .gamepreview .down .t3d-cnt tag{
+     width: 90px; padding: 10px; height: 90px; background-color: var(--bg-primary);
+     border-radius: 90px; border: 1px solid var(--col-primary); color: var(--col-secondary);
+     position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); text-align: center;
+     font-size: 20%; line-height: 90px;
+     
+    border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+	  animation: borderRadial var(--d) linear infinite forwards;
+}
+.page .gamepreview[gone] .down .t3d-cnt{
+      transform: perspective(500px) rotateY(-90deg);
+}
+
+
+
+@keyframes borderRadial {
+	20% {
+		--gradX: 100%;
+		--gradY: 50%;
+	}
+	40% {
+		--gradX: 100%;
+		--gradY: 100%;
+	}
+	60% {
+		--gradX: 50%;
+		--gradY: 100%;
+	}
+	80% {
+		--gradX: 0%;
+		--gradY: 50%;
+	}
+	100% {
+		--gradX: 50%;
+		--gradY: 0%;
+	}
+}
