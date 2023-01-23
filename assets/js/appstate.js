@@ -1,7 +1,7 @@
 
 
-function AppState(){
-    let ctx = this;
+function AppState(appCss=null){ 
+    let ctx = this; 
     this.pages = [...document.querySelectorAll("[app-page]")];
     this.pageso = {};
     this.registerPages = function(){
@@ -26,6 +26,8 @@ function AppState(){
         call();
     };
     this.showpage = function(pagename, call=()=>{}){
+        
+        if(appCss && appCss.resetState) appCss.resetState();
         ctx.goneAllPages();
         ctx.pageso[pagename].removeAttribute("gone", "");
         call();

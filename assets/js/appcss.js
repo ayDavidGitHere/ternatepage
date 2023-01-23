@@ -1,6 +1,7 @@
 import cdrawlogic from "./cdrawlogic.js";
 
 function AppCss(tms, threelogic){  
+    let ctx = this;
     document.querySelector(".page .about")
     .addEventListener("scroll", function(evt){ 
         tms.map((tm, ind)=>{
@@ -57,21 +58,37 @@ function AppCss(tms, threelogic){
     
     
     
-    
     //main-text texts animator
-    let interval = 400;
+    let interval = 200;
     let timecount = 0;
-    let blurind = 0;
+    let blurind = 0; let postloadind = 0;
     let xlist = [...document.querySelectorAll(".page .welcome .main-text x")];
+    this.resetState = function(){
+        interval = 200;
+        timecount = 0;
+        blurind = 0; postloadind = 0;
+        xlist = [...document.querySelectorAll(".page .welcome .main-text x")];
+        xlist.map(x=>{
+            x.removeAttribute("postload", "");
+        });
+    }
+    
+    
     setInterval(function(){
-        //if(timecount%(interval*15)==0) blurind = 0; //restart at every 
+        if(postloadind>=xlist.length) return;
+        xlist[postloadind].setAttribute("postload", "");
+        postloadind++;
         timecount += interval;
+        
+      
+       /*
+        //if(timecount%(interval*15)==0) blurind = 0; //restart at every 
         xlist.map(x=>{
             x.removeAttribute("blur", "");
         });
         if(blurind>=xlist.length) return;
         xlist[blurind].setAttribute("blur", "");
-        blurind++;
+        blurind++; */
     }, interval);
     
     

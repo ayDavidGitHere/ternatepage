@@ -77,7 +77,8 @@ function App(){
         //gtl.setAttribute("goto", "welcome");  //gtl.innerText = "SEE FULL LIST";
         threelogic.particleManager.removeAllParticles();
     }
-    let appState = new AppState();  
+    let appCss = new AppCss(loadElements.textMain1s, threelogic);
+    let appState = new AppState(appCss);  
     let showpage = ((new URL(window.location)).pathname || "" ).toLowerCase().split("/")[1]; console.log("showpage", showpage)
     switch (showpage){
         case "welcome":
@@ -133,15 +134,13 @@ function App(){
             page.setAttribute("statechanging", "no");
         });
       }//EO onclick
-    })
+    });//
     document.onkeydown = (function(e){
        // if(e.key==" ") threelogic.particleManager.transformParticle("plane");
         if(e.key==" ") threelogic.particleManager.enterSphere();
     });
     
     
-    //EO Appstate
-    AppCss(loadElements.textMain1s, threelogic);
     
     //cdrawlogic.writeBoxs(loadElements.canvasContainer);
     

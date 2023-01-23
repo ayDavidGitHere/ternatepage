@@ -80,7 +80,7 @@ WELCOME
 }
 .page .welcome .main-text {
     font-size: 50px; text-transform: uppercase;
-    color: var(--col-secondary);  
+    color: var(--col-secondary);  position: relative;
 }
 .page .welcome .main-text span.highlight{
     text-transform: uppercase;
@@ -88,18 +88,65 @@ WELCOME
 }
 .page .welcome .main-text x {
   font-family: inherit;
-  transition: opacity 500ms ease;
+  transition: opacity 500ms ease; 
+  position: relative;
 }
+.page .welcome .main-text x:after {
+  content: ""; position: absolute; 
+  top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); opacity: 1;
+  transition: top 1s ease, height 1s ease, opacity 1s ease;
+}
+.page .welcome .main-text x[postload]:after {
+  content: ""; position: absolute; 
+  top: 0%; left: 0; width: 100%; height: 20%; background: var(--bg-primary); opacity: 0.2;
+  animation: over-shadow 1s infinite; animation-delay: 2s;
+}
+
+
+
 .page .welcome .main-text x:focus, x:hover{
+   opacity: 0.2;
+}
+.page .welcome .main-text x[postload]:focus:after, x[postload]:hover:after{
    opacity: 0.2;
 }
 .page .welcome .main-text x[blur]{
    opacity: 0.2; //color: var(--col-primary);
 }
 
+@keyframes over-shadow {
+  0% {
+    height: 20%;
+  }
+  50% {
+    height: 50%;
+  }
+  100% {
+    height: 20%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .page .welcome .sub-text {
     font-size: 22px; 
     color: var(--col-primary);
+    opacity: 1;
+    transition: opacity 8s ease;
+}
+.page .welcome[gone] .sub-text {
+    opacity: 0;
 }
 
 
