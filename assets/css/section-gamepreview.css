@@ -5,14 +5,14 @@
     position: absolute; overflow-y: scroll;
 }   
 .page .gamepreview .title-header {
-      font-size: 40.0%;  text-align: center; height: 20%; box-sizing: border-box; overflow: hidden; color: var(--col-secondary); margin-top: 5%; line-height: 150%;
+      font-size: 40.0%;  text-align: center; height: 10%; box-sizing: border-box; overflow: hidden; color: var(--col-secondary); margin-top: 5%; line-height: 150%;
       transition: line-height 1s ease-in;
 }
 .page .gamepreview[gone] .title-header {
        line-height: 300px;
 }
-.page .gamepreview .down {
-      width: 100%; display: flex; justify-content: space-between; box-sizing: border-box; //background: green;
+.page .gamepreview .down { b
+      width: 100%; display: flex; justify-content: space-between; box-sizing: border-box;
       height: 50%;  opacity: 1; flex-flow: row wrap;
       --d: 2500ms;
     	--angle: 90deg;
@@ -20,39 +20,72 @@
     	--gradY: 50%;
     	--c1: var(--col-primary);
     	--c2: var(--bg-secondary-trsp);
-    	--c1: var(--bg-primary);
+    	--c1: var(--bg-secondary);
     	--c2: var(--col-secondary-trsp);
 }
 .page .gamepreview .down .story-cnt{
       display: inline-block; max-width: 50%; height: 100%; overflow-x: hidden; overflow: hidden;padding: 30px;
       line-height: 35px; padding-right: 50px; padding-left: 80px; box-sizing: border-box;
-      padding-top: 30px; //transition: padding-top 1s ease-in;
+      padding-top: 10px; //transition: padding-top 1s ease-in; 
 }
 .page .gamepreview[gone] .down .story-cnt{
       padding-top: 100%; 
 }
 .page .gamepreview .down .story-cnt story1{
-      font-size: 30%; font-size: bold; margin-bottom: 30px; display: inline-block; 
-      color: var(--col-secondary); word-spacing: 10px; opacity: 1;transition: word-spacing 1s ease, opacity 1s ease; transition-delay: 1.82s;
+      font-size: 60%; font-size: bold; margin-bottom: 5px; display: inline-block; 
+      color: var(--col-secondary);  opacity: 1;transition: word-spacing 1s ease, opacity 1s ease; transition-delay: 1.82s; line-height: 100%;
+      position: relative;
 }
-.page .gamepreview[gone] .down .story-cnt story1{
-      word-spacing: -100px; opacity: 0.002;
+.page .gamepreview .down .story-cnt story1:before {
+  content: ""; position: absolute; 
+  top: -20%; left: 0; width: 100%; height: 0%; background: green; //opacity: 0.1;
+  transition: top 1s ease, height 5s ease, opacity 1s ease;
 }
+.page .gamepreview .down .story-cnt story1:after {
+  content: ""; position: absolute; 
+  top: -20%; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, var(--bg-primary) 70%,  transparent); //opacity: 0.1;
+  transition: top 1s ease, height 1.5s ease, opacity 1s ease;
+}
+.page .gamepreview[gone] .down .story-cnt story1:after {
+  content: ""; position: absolute; 
+  top: -20%; left: 0; width: 100%; height: 120%; opacity: 1;
+}
+
 .page .gamepreview .down .story-cnt story2{
-      font-size: 20%; margin-bottom: 10px; display: inline-block; line-height: 170%; transition: line-height 1.3s ease-out; transition-delay: 2.3s;
+      font-size: 20%; margin-bottom: 1.0px; display: inline-block; 
+      word-spacing: 100%; opacity: 1; transition: word-spacing 1s ease, opacity 1s ease; transition-delay: 1s;
 }
 .page .gamepreview[gone] .down .story-cnt story2{
-      line-height: 800px;
+      word-spacing: -100px; opacity: 0.002;
 }
 .page .gamepreview .down .story-cnt story-but{
-      font-size: 20%; border-radius: 50px; padding: 12px 48px; line-height: 0px;
-      border: 1px solid var(--col-secondary); color: var(--col-secondary); margin-top: 10px;
-      //border-right: transparent; //border-bottom: transparent;
-      text-transform: lowercase;
+      font-size: 20%;  padding: 12px 48px; line-height: 0px;
+      border-bottom: 1px solid var(--col-secondary); color: var(--col-secondary); margin-top: 10px;
+      text-transform: lowercase; padding-bottom: 2px;
+      transition: padding 1s ease, word-spacing 1s ease, opacity 1s ease; transition-delay: 1.15s; word-spacing: 100%;
+      position: relative;
+}   
+.page .gamepreview[gone] .down .story-cnt story-but{
+      padding: 0 0; line-height: 0px; opacity: 0;
+      //font-size: 0%; word-spacing: -100;
 }
-.page .gamepreview .down .story-cnt story-but:hover{
-  background: var(--col-primary);
+.page .gamepreview .down .story-cnt story-but:before:hover{
+      //left: 0%; transition: left 1s ease;
 }
+.page .gamepreview .down .story-cnt story-but:before {
+      content: ""; position: absolute; 
+      top: 100%; left: 100%; width: 100%; height: 100%;  transform: translate(-50%, -50%);
+      background: radial-gradient(circle closest-side at center, var(--col-secondary), transparent);
+      transition: top 1s ease, height 2s ease, opacity 1s ease;
+}
+
+
+
+
+
+
+
+
 
 .page .gamepreview .down .t3d-cnt{
      width: 50%; border-radius: 2px;
@@ -61,10 +94,12 @@
       transform: perspective(500px) rotateY(-20deg);
       transition: transform 1s ease-out;
       box-sizing: border-box;  transition-delay: 0;
+      border-radius: 1500px; border-color: var(--col-secondary);
       
       
-    border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
-	  animation: borderRadial var(--d) linear infinite forwards;
+      border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+  	  animation: borderRadial var(--d) linear infinite forwards;
+  	  
 }
 .page .gamepreview .down .t3d-cnt:hover{
       transform: perspective(500px) rotateY(0deg);
@@ -72,7 +107,8 @@
 .page .gamepreview .down .t3d-cnt three-anim{
     position: absolute; display: block; width: 100%; height: 100%;
 }
-.page .gamepreview .down .t3d-cnt tag{
+.page .gamepreview .down .t3d-cnt tag{  
+     position: relative;
      width: 90px; padding: 10px; height: 90px; background-color: var(--bg-primary);
      border-radius: 90px; border: 0.21px solid var(--col-secondary); color: var(--col-primary);
      position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); text-align: center;
@@ -81,8 +117,15 @@
     //border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
 	  animation: borderRadial var(--d) linear infinite forwards;
 }
+.page .gamepreview .down .t3d-cnt tag:before {
+       content: "";
+       position: absolute;
+       top: 0;
+       left: 0;
+}
+
 .page .gamepreview[gone] .down .t3d-cnt{
-      transform: perspective(500px) rotateY(-90deg);
+      transform: perspective(500px) rotateY(-g);
 }
 
 

@@ -18,6 +18,18 @@ document.addEventListener('mousemove', function (event) {
 document.addEventListener('touchmove+', function (event) {
     event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};
 });
+let superctx = {preloads:{}, preloaders:{}};
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -195,7 +207,7 @@ function ThreeLogic(container) {
         function initparticles(){
               // particles
                 p_geom = new THREE.BufferGeometry();
-                p_material = new THREE.PointsMaterial({size: 0.355});
+                p_material = new THREE.PointsMaterial({size: 0.3});
                 p = new THREE.Points(
                   p_geom,
                   p_material
@@ -274,7 +286,7 @@ function ThreeLogic(container) {
                   verticestotal_length2 += v.length; console.log(v.length, verticestotal_length2)
               })
               p_geom.vertices = vertices;//list[3];
-              console.log(verticeslist.length)
+              //console.log(verticeslist.length)
               
               
               
@@ -308,14 +320,46 @@ function ThreeLogic(container) {
         
         
         
-        let headparticle = function() {   
-           var manager = new THREE.LoadingManager();
-           manager.onProgress = function ( item, loaded, total ) {};
-           var loader = new OBJLoader( manager );
-           //var loader = new FBXLoader( manager );
-           loader.load(assets_url+'/canvas/models/controller.obj', function(object){  doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1}) });
-           //loader.load(assets_url+'/canvas/models/game controller.fbx', function(object){  doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1}) });
-        } 
+        function createParticle(modelName, modelPath) {
+          return function(procedural=false) {
+            function load(callback=function() {}) {
+              if (superctx.preloads[`${modelName}obj`]) {
+                let object = superctx.preloads[`${modelName}obj`];
+                callback(object);
+                return object;
+              }
+              let manager = new THREE.LoadingManager();
+              manager.onProgress = function(item, loaded, total) {};
+              let loader = new OBJLoader(manager);
+              loader.load(`${assets_url}${modelPath}`, function(object) {
+                superctx.preloads[`${modelName}obj`] = object;
+                callback(object);
+                return object;
+              });
+            }
+        
+            function make() {
+              load(function(object) { console.log(object);
+                doparticles(object, {}, {autopendulumscale: 0.31, mouserotate: 1});
+              });
+            }
+            
+            if (procedural === false) make();
+            return { load, make };
+          };
+        }
+        
+        let controllerparticle = createParticle("controller", "/canvas/models/controller.obj");
+        superctx.preloaders.controllerparticle = controllerparticle;
+        
+        
+        
+        
+        
+        
+        
+        
+        
         let spheregeometry = function() {   
             let material = new THREE.MeshLambertMaterial({
                     color: 0x00BBBB,
@@ -415,7 +459,7 @@ function ThreeLogic(container) {
         //textgeometry(); 
         //othergeometry();
         //spheregeometry();
-        //headparticle();
+        //controllerparticle();
         
         
         
@@ -432,7 +476,7 @@ function ThreeLogic(container) {
         let addParticle = function(typeto){
             camera.position.set(0, 15.0, 100);
             camera.lookAt(new THREE.Vector3(0, 20, -100));
-            if(typeto=="head") headparticle();
+            if(typeto=="head") controllerparticle();
             if(typeto=="shapes") othergeometry();
         }
         let transformParticle = function(typeto){
@@ -440,7 +484,7 @@ function ThreeLogic(container) {
             if(typeto=="head") headgeometry(true);
         }
         initparticles();
-        return {initparticles, removeAllParticles, addParticle, transformParticle, enterSphere, enterParticleInSphere, moveSphere}
+        return {initparticles, removeAllParticles, addParticle, transformParticle, enterSphere, enterParticleInSphere, moveSphere};
     }
     function makeAnimation(){
         cubeAnimation();
@@ -454,7 +498,9 @@ function ThreeLogic(container) {
         init();
         animate();
     });
-    
+    ctx.preloadAssets = function(callback){
+        superctx.preloaders.controllerparticle(true).load(callback);
+    }
     
     
 }

@@ -27,33 +27,19 @@ async function sleep(time){
     });
 }
 
-function SP(){
-    this.components = [];
-    this.RegisterComponent = async (path, tag)=>{
-        let component = {};
-        component.path = path;
-        component.tag = tag;
-        component.content = await fetch(path).text();
-        this.components.push(component);
-        return null;
-    }
-    this.AddComponent = (tag, addtoelement)=>{
-        
-    }
-    this.GetComponent = (tag)=>{
-        let component = null;
-        this.components.map(c=>{
-            if(c.tag==tag){component = c; return;}
-        });
-        return component;
-    }
+async function loadAssets(threelogic, threeanims){
+    let loadeds = 0; let loadedmax = 2;
+    return new Promise(function(resolve, reject){
+        threeanims.preloadAssets(function(){ loadeds++; if(loadeds>=loadedmax) resolve();});
+        threelogic.preloadAssets(function(){ loadeds++; if(loadeds>=loadedmax) resolve();});
+    });
 }
 
 
 
 
 
-function App(){
+async function App(){
     let loadElements = new LoadElements();
     let threelogic = new ThreeLogic(loadElements.canvasContainer);
     let gtls = loadElements.gotoLinks;
@@ -78,8 +64,10 @@ function App(){
         threelogic.particleManager.removeAllParticles();
     }
     let appCss = new AppCss(loadElements.textMain1s, threelogic);
-    let appState = new AppState(appCss);  
-    let showpage = ((new URL(window.location)).pathname || "" ).toLowerCase().split("/")[1]; console.log("showpage", showpage)
+    let appState = new AppState(appCss);
+    await loadAssets(threelogic, threeanims);
+    let showpage = ((new URL(window.location)).pathname || "" ).toLowerCase().split("/")[1];
+    //console.log("showpage", showpage)
     switch (showpage){
         case "welcome":
           appState.showpage("welcome", function(){    welcomepage();     });
@@ -96,6 +84,7 @@ function App(){
         default: 
           appState.showpage("welcome", function(){    welcomepage();     });
     }
+    threeanims.setAnims();
 
 
 
@@ -103,20 +92,25 @@ function App(){
       gtl.onclick = async function(e){
         page.setAttribute("statechanging", "yes");
         let gotopage = gtl.getAttribute("goto");
+        let gotopageloader = null;
         if(gotopage == "about") {
             page.setAttribute("currentview", "about");
+            gotopageloader = aboutpage;
             await sleep(1000);
         }
         if(gotopage == "welcome") {
             page.setAttribute("currentview", "welcome");
+            gotopageloader = welcomepage;
             await sleep(1000);
         }
         if(gotopage == "gartpreview") { 
             page.setAttribute("currentview", "gartpreview");
+            gotopageloader = gartpreviewpage;
             await sleep(1000);
         }
         if(gotopage == "gamepreview") { 
             page.setAttribute("currentview", "gamepreview");
+            gotopageloader = gamepreviewpage;
             await sleep(1000);
         }
         
@@ -126,39 +120,23 @@ function App(){
         
         appState.showpage(gotopage, function(){   
             threeanims.setAnims();
-            if(gotopage == "about") aboutpage(e);
-            if(gotopage == "welcome") welcomepage(e);
-            if(gotopage == "gartpreview") gartpreviewpage(e);
-            if(gotopage == "gamepreview") gamepreviewpage(e);
+            gotopageloader(e);
             window.history.pushState({}, gotopage, gotopage);
             page.setAttribute("statechanging", "no");
         });
       }//EO onclick
     });//
     document.onkeydown = (function(e){
-       // if(e.key==" ") threelogic.particleManager.transformParticle("plane");
+        //if(e.key==" ") threelogic.particleManager.transformParticle("plane");
         if(e.key==" ") threelogic.particleManager.enterSphere();
     });
     
     
     
-    //cdrawlogic.writeBoxs(loadElements.canvasContainer);
     
     
     
     
-    
-    
-    
-    
-    
-    return;
-    let sp = new SP();
-    (async function(){
-    let about_sp = await sp.RegisterComponent("../../about.sp.html", "about_sp");
-    //on =>{this.AddComponent("about_sp");}
-    console.log(sp.GetComponent("about_sp"));
-    })();
     
 }
 App();//calling app here rather than html else wepack would t do full compile

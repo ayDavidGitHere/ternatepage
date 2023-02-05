@@ -8,6 +8,7 @@ import {DRACOLoader} from '../../node_modules/three/examples/jsm/loaders/DRACOLo
 import {FontLoader} from '../../node_modules/three/examples/jsm/loaders/FontLoader.js';
 import {TextGeometry} from '../../node_modules/three/examples/jsm/geometries/TextGeometry.js';
 import {TeapotGeometry} from '../../node_modules/three/examples/jsm/geometries/TeapotGeometry.js';
+import * as LightningGeometry from '../../node_modules/three/examples/jsm/geometries/BoxLineGeometry.js';
 let colors = { bg_secondary: window.getComputedStyle(document.documentElement).getPropertyValue("--bg-secondary")};
 let assets_url = window.location.origin+"/assets";
 if(window.location.href.includes("ternatepage")) 
@@ -19,6 +20,15 @@ document.addEventListener('mousemove', function (event) {
 document.addEventListener('touchmove+', function (event) {
     event.preventDefault(); mousePos = {x:event.clientX/window.innerWidth, y:event.clientY/window.innerHeight};
 });
+let superctx = {preloads:{}, preloaders:{}};
+
+
+
+
+
+
+
+
 
 
 
@@ -309,18 +319,47 @@ function Start(container, sizing = {}) {
         }
         
         
+                
+                
+                
+        function createParticle(modelName, modelPath) {
+          return function(procedural=false) {
+            function load(callback=function() {}) {
+              if (superctx.preloads[`${modelName}obj`]) {
+                let object = superctx.preloads[`${modelName}obj`];
+                callback(object);
+                return object;
+              }
+              let manager = new THREE.LoadingManager();
+              manager.onProgress = function(item, loaded, total) {};
+              let loader = new OBJLoader(manager);
+              loader.load(`${assets_url}${modelPath}`, function(object) {
+                superctx.preloads[`${modelName}obj`] = object;
+                callback(object);
+                return object;
+              });
+            }
+        
+            function make() {
+              load(function(object) { console.log(object);
+                doparticles(object,{ postn: [0, 15.0, camera.position.z - 70] },{ autopendulumscale: 1, mouserotate: 1 }
+                );
+              });
+            }
+        
+            if (procedural === false) make();
+            return { load, make };
+          };
+        }
+        
+        let headparticle = createParticle("head", "/canvas/models/head.obj");
+        superctx.preloaders.headparticle = headparticle;
+        
+        let fishparticle = createParticle("fish", "/canvas/models/fishv1/fish.obj");
+        superctx.preloaders.fishparticle = fishparticle;
         
         
         
-        let headparticle = function() {   
-           var manager = new THREE.LoadingManager();
-           manager.onProgress = function ( item, loaded, total ) {};
-           var loader = null;
-           loader = new OBJLoader( manager );
-           //loader = new FBXLoader( manager );
-           loader.load(assets_url+'/canvas/models/head.obj', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 1, mouserotate: 1}) });
-           //loader.load(assets_url+'/canvas/models/phazzzer_skull.FBX', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 3, mouserotate: 1}) });
-        } 
         let spheregeometry = function() {   
             let material = new THREE.MeshLambertMaterial({
                     color: 0x00BBBB,
@@ -354,7 +393,7 @@ function Start(container, sizing = {}) {
             text.position.y = 100;
             text.position.z = 50; 
             //doparticles(text, {postn: [-15,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]});
-            doparticles(text, {postn: [+0,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]})
+            doparticles(text, {postn: [+0,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]});
         } ;
         let textgeometry = function() {   
             const loader = new FontLoader();
@@ -377,13 +416,16 @@ function Start(container, sizing = {}) {
             });
         }
         let lightninggeometry = function() {   
-           var manager = new THREE.LoadingManager();
-           manager.onProgress = function ( item, loaded, total ) {};
-           var loader = null;
-           loader = new OBJLoader( manager );
-           //loader = new FBXLoader( manager );
-           loader.load(assets_url+'/canvas/models/gun.obj', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 1, mouserotate: 1}) });
-           //loader.load(assets_url+'/canvas/models/phazzzer_skull.FBX', function(object){  doparticles(object, {postn: [+0,+15.0,camera.position.z-70]}, {autopendulumscale: 3, mouserotate: 1}) });
+            let material = new THREE.MeshLambertMaterial({
+                    color: 0x00BBBB,
+                });
+            let text = new THREE.Mesh(new TeapotGeometry(6.0, 6.0), material);
+            scene.add(text);
+            text.position.x = 0;
+            text.position.y = 100;
+            text.position.z = 50; 
+            //doparticles(text, {postn: [-15,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]});
+            doparticles(text, {postn: [+0,+15.0,camera.position.z-70]}, {autorotate: [0.0521,0,0.025]});
         } ;;
         let planeparticle = function() {
            let p = particlesList[0];
@@ -459,6 +501,7 @@ function Start(container, sizing = {}) {
             camera.position.set(0, 15.0, 100);
             camera.lookAt(new THREE.Vector3(0, 20, -100)); 
             if(typeto=="head") headparticle();
+            if(typeto=="fish") fishparticle();
             if(typeto=="circle") circlegeometry();
             if(typeto=="teapot") teapotgeometry();
             if(typeto=="lightning") lightninggeometry();
@@ -484,7 +527,7 @@ function Start(container, sizing = {}) {
     });
     
     
-    
+  
 }
 
 
@@ -493,9 +536,9 @@ function Start(container, sizing = {}) {
 
 function setAnims(){
         [...document.querySelectorAll(".page .sections[app-page]:not([gone]) three-anim")]
-        .map(container=>{
-
-            if(container.getAttribute("loaded") && container.getAttribute("reloadable")==undefined) return;
+        .map(container=>{ 
+            if(container.getAttribute("loaded") && container.getAttribute("reloadable")==undefined)
+            return;
             container.setAttribute("loaded", "true");
             console.log("setanim.. height: ", container.parentNode.clientHeight);
             let draw  = container.getAttribute("draw"); console.log(draw);
@@ -504,6 +547,12 @@ function setAnims(){
             start.particleManager.addParticle(draw);
         });
 }//EO setAnims
-let threeanims = {setAnims};
+function preloadAssets(callback){
+    let container = document.body.children[0];
+    let start = new Start(container, {clientHeight: container.parentNode.parentNode.clientHeight});
+    superctx.preloaders.headparticle(true).load(callback);
+    superctx.preloaders.fishparticle(true).load(callback);
+}
+let threeanims = {setAnims, preloadAssets};
 document.addEventListener("DOMContentLoaded", function(){threeanims.setAnims();});
 export default threeanims;
