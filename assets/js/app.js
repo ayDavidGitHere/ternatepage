@@ -3,6 +3,7 @@ import AppCss from "./appcss.js";
 import ThreeLogic from "./threelogic.js";
 import cdrawlogic from "./cdrawlogic.js";
 import threeanims from "./threelogic.anims.js";
+import page_welcome from "./page.welcome.js";
 function LoadElements(){
     this.canvasContainer = document.querySelector(".welcome-abs threejs");
     this.textMain1s = [...document.querySelectorAll(".sections.about .texts")]; 
@@ -49,6 +50,7 @@ async function App(){
         //gtl.setAttribute("goto", "gartpreview");  gtl.innerText = "GAMES" ;
         threelogic.particleManager.removeAllParticles();
         threelogic.particleManager.addParticle("head");
+        page_welcome.run();
     }
     async function aboutpage(e){
         //gtl.setAttribute("goto", "welcome");  //gtl.innerText = "GO BACK";

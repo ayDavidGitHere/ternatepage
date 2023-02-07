@@ -88,18 +88,22 @@ WELCOME
 }
 .page .welcome .main-text x {
   font-family: inherit;
-  transition: opacity 500ms ease; 
+  transition: opacity 500ms ease, letter-spacing 500ms ease; 
   position: relative;
+  //letter-spacing: -50px; opacity: 0;
 }
 .page .welcome .main-text x:after {
   content: ""; position: absolute; 
-  top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); opacity: 1;
-  transition: top 1s ease, height 1s ease, opacity 1s ease;
+  top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); opacity: 0;//1;
+  transition: top 1s ease, height 1s ease, opacity 1s ease;// filter: blur(5px);
+}
+.page .welcome .main-text x[postload]{
+  //letter-spacing: 0px; opacity: 1;
 }
 .page .welcome .main-text x[postload]:after {
   content: ""; position: absolute; 
-  top: 0%; left: 0; width: 100%; height: 20%; background: var(--bg-primary); opacity: 0.2;
-  animation: over-shadow 1s infinite; animation-delay: 2s;
+  top: 0%; left: 0; width: 110%; height: 110%; background: var(--bg-primary); opacity: 0;
+  //animation: over-shadow 1s infinite; //animation-delay: 2s;
 }
 
 
@@ -111,8 +115,91 @@ WELCOME
    opacity: 0.2;
 }
 .page .welcome .main-text x[blur]{
-   opacity: 0.2; //color: var(--col-primary);
+   opacity: 0.2; 
 }
+
+
+
+
+/**Page away**/
+.page .welcome .text {
+  transition: transform 1s, opacity .51s; 
+  transform: scale(2); opacity: 0;
+}
+.page .welcome[in-view="text"] .text {
+  transform: scale(1); opacity: 1;
+}
+
+
+
+
+
+.page .welcome .next-view {
+  display: block; width: 100%; height: 100%;
+  position: absolute; top: 100%; left: 0%;  
+  background: var(--bg-secondary-trsp);
+  box-sizing: border-box; padding: 20px; padding-top: 80px;
+  transition: top 1s, height 1s; transition-delay: 0.21s;
+}
+.page .welcome[in-view="next-view"]  .next-view  {
+  height: 100%; top: 30%;
+}
+
+
+.page .welcome .next-view .top{
+    display: flex; width: 100%; padding-bottom: 150px; box-sizing: padding-box;
+    flex-wrap: wrap;
+}
+.page .welcome .next-view .top side{
+    width: 30%; padding-left: 30%; padding-right: 10%;  flex-grow: 1;
+    background: green;
+}
+.page .welcome .next-view .top .main{
+    width: 70%; padding-left: 30%; padding-right: 10%; flex-grow: 1;
+    
+    font-size: 70px; text-transform: uppercase; text-align: center;
+    color: var(--bg-secondary);  position: relative;
+    
+    transition: opacity 2s; transition-delay: 1.2s;
+    opacity: 0;
+}
+.page .welcome[in-view="next-view"] .next-view .top .main{
+    opacity: 1;
+}
+.page .welcome .next-view .top sun{
+    width: 0px; height: 0px; 
+    transition: height 1s, width 1s; transition-delay: 1.5s;
+}
+.page .welcome[in-view="next-view"] .next-view .top sun{
+    width: 150px; height: 150px; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @keyframes over-shadow {
   0% {
@@ -326,6 +413,10 @@ ABOUT
     background-color: var(--col-secondary-trsp);
     pointer-events: auto;
     transition: padding 0.6s ease-out, opacity 1s ease-out; opacity: 0;
+    //background-image: linear-gradient(to bottom, var(--bg-primary), var(--bg-primary) ), linear-gradient(to bottom, var(--col-secondary-trsp), var(--col-secondary-trsp) );
+    background-position: center, center;
+    background-size: cover, cover;
+    background-repeat: no-repeat, no-repeat;
 }
 .page .go-link-cnt .go-link[opener]{
     display: inline-block; opacity: 1;
@@ -342,6 +433,7 @@ ABOUT
     color: var(--col-primary);
     background-color: var(--bg-secondary-trsp);
     padding-right: 50px; padding-left: 50px;
+    //background-image: linear-gradient(to bottom, var(--bg-primary), var(--bg-primary) ), linear-gradient(to bottom, var(--bg-secondary-trsp), var(--bg-secondary-trsp) );
 }
 
 

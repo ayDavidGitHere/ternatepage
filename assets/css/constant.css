@@ -135,3 +135,39 @@
 [fnt-hF-7]{
     font-family: h7F;
 }
+
+
+
+
+
+
+
+sun {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border-bottom: 1px solid var(--col-secondary);
+  position: absolute; top: 10%; left: 10%;
+  animation: rotate 5s linear infinite;
+}
+
+sun::before, sun::after {
+  content: "";
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  transform: translate(50%, 50%);
+  border: 1px solid var(--col-secondary);
+  animation: rotate 5s linear infinite;
+  clip-path: url(#concave-star-shape);
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
