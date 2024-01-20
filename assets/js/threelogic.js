@@ -205,105 +205,103 @@ function ThreeLogic(container) {
     function addParticles(){
         let p, p_material, p_geom, animopts; 
         function initparticles(){
-              // particles
-                p_geom = new THREE.BufferGeometry();
-                p_material = new THREE.PointsMaterial({size: 0.3});
-                p = new THREE.Points(
-                  p_geom,
-                  p_material
-                );
-                p.animsettings = {};
-                
-                
-              let sy = null, py = null;
-              function pendulum(sy,py,d0,d1,lim0,lim1){
-                  sy = sy==d0&&py>lim0?d0:sy
-                  sy = sy==d0&&py<lim0?d1:sy
-                  sy = sy==d1&&py<lim1?d1:sy
-                  sy = sy==d1&&py>lim1?d0:sy
-                  return sy;
-              }
-              particleAniation = function(){
-                animopts = p.animsettings;
-                ;(function (){
-                    if(!animopts.autopendulumrotate) return;
-                    //rotation
-                    py = p.rotation.y;
-                    if(sy==null) sy = -0.2;
-                    sy = pendulum(sy,py,-0.2,+0.2,-1.6,+1.6);
-                    p.rotation.y += 0.05*sy;
-                })();
-                ;(function (){
-                    if(!animopts.autopendulumscale) return;
-                    //scale
-                    py = p.scale.y;
-                    if(sy==null) sy = -0.2/10;
-                    sy = pendulum(sy,py,-0.2/10,+0.2/10,100*0.1/10*6,200*0.1/10*6);
-                    p.scale.x = p.scale.y = p.scale.z += sy;
-                })();
-                ;(function (){
-                    if(!animopts.autorotate) return;
-                    //rotation
-                    let [vx,vy,vz] = animopts.autorotate;
-                    p.rotation.x += 0.05*vx;
-                    p.rotation.y += 0.05*vy;
-                    p.rotation.z += 0.05*vz;
-                })();
-                ;(function (){
-                    if(!animopts.mouserotate) return;
-                    p.rotation.x = (mousePos.y-0.5) * Math.PI;
-                    p.rotation.z = (mousePos.x-0.5) * Math.PI;
-                    p.rotation.y = (mousePos.x-0.5) * Math.PI;
-                })();
-              }
-              animations.push(particleAniation);
-              
-              
+            // particles
+            p_geom = new THREE.BufferGeometry();
+            p_material = new THREE.PointsMaterial({size: 0.3});
+            p = new THREE.Points(
+                p_geom,
+                p_material
+            );
+            p.animsettings = {};
+            
+            
+            let sy = null, py = null;
+            function pendulum(sy,py,d0,d1,lim0,lim1){
+                sy = sy==d0&&py>lim0?d0:sy
+                sy = sy==d0&&py<lim0?d1:sy
+                sy = sy==d1&&py<lim1?d1:sy
+                sy = sy==d1&&py>lim1?d0:sy
+                return sy;
+            }
+            particleAniation = function(){
+            animopts = p.animsettings;
+            ;(function (){
+                if(!animopts.autopendulumrotate) return;
+                //rotation
+                py = p.rotation.y;
+                if(sy==null) sy = -0.2;
+                sy = pendulum(sy,py,-0.2,+0.2,-1.6,+1.6);
+                p.rotation.y += 0.05*sy;
+            })();
+            ;(function (){
+                if(!animopts.autopendulumscale) return;
+                //scale
+                py = p.scale.y;
+                if(sy==null) sy = -0.2/10;
+                sy = pendulum(sy,py,-0.2/10,+0.2/10,100*0.1/10*6,200*0.1/10*6);
+                p.scale.x = p.scale.y = p.scale.z += sy;
+            })();
+            ;(function (){
+                if(!animopts.autorotate) return;
+                //rotation
+                let [vx,vy,vz] = animopts.autorotate;
+                p.rotation.x += 0.05*vx;
+                p.rotation.y += 0.05*vy;
+                p.rotation.z += 0.05*vz;
+            })();
+            ;(function (){
+                if(!animopts.mouserotate) return;
+                p.rotation.x = (mousePos.y-0.5) * Math.PI;
+                p.rotation.z = (mousePos.x-0.5) * Math.PI;
+                p.rotation.y = (mousePos.x-0.5) * Math.PI;
+            })();
+            }
+            animations.push(particleAniation);
         }
         function doparticles( object, parameters = {}, animsettings = {}) {
-              //scene.add(object)
-              p_material = p.material;
-              p_geom = p.geometry;
-              p.rotation.x = p.rotation.y = p.rotation.z = 0;
-              p.scale.x = p.scale.y = p.scale.z = 1;
-                
-                
-             
-              let verticeslist = []; let vertices = null;
-              let verticestotal_length = 0; let verticestotal_length2 = 0; let vind = 0;
-              console.log("doing particles from object");
-              if(object.traverse !== undefined)
-              object.traverse( function ( child ) { //if(vind!=5) return; 
-                 if ( child instanceof THREE.Mesh || child.isMesh) {
-                    var scale = 8;
-                    verticeslist.push(child.geometry.getAttribute("position").array);
-                    verticestotal_length += child.geometry.getAttribute("position").array.length; vind++;
-                 }
-              });
-              vertices = new Float32Array(verticestotal_length);
-              verticeslist.map(v=>{
-                  vertices.set(v, verticestotal_length2);
-                  verticestotal_length2 += v.length; console.log(v.length, verticestotal_length2)
-              })
-              p_geom.vertices = vertices;//list[3];
-              //console.log(verticeslist.length)
-              
-              
-              
-              let p_postn = parameters.postn?parameters.postn:[30,20,20];
-              let p_color = parameters.color?parameters.color:colors.bg_secondary;
-              p.material.color = new THREE.Color(p_color);
-              p_geom.setAttribute('position', new THREE.BufferAttribute( p_geom.vertices, 3 ));
-              p_geom.center();
-              p.position.set(p_postn[0], p_postn[1], p_postn[2]);
-              p.scale.x = p.scale.y = p.scale.z += 0.75;
-              scene.add(p);
-              particlesList.push(p);// p = object;
-              //animating
-              p.animsettings = animsettings;
-              if(!p.animsettings.autopendulumscale){   p.scale.x = p.scale.y = p.scale.z += 0.25;  }
-              if(!p.animsettings.autopendulumrotate){  p.rotation.y = 0;      }
-              return p;
+            //scene.add(object)
+            p_material = p.material;
+            p_geom = p.geometry;
+            p.rotation.x = p.rotation.y = p.rotation.z = 0;
+            p.scale.x = p.scale.y = p.scale.z = 1;
+            
+            
+            
+            let verticeslist = []; let vertices = null;
+            let verticestotal_length = 0; let verticestotal_length2 = 0; let vind = 0;
+            console.log("doing particles from object");
+            if(object.traverse !== undefined)
+            object.traverse( function ( child ) { //if(vind!=5) return; 
+                if ( child instanceof THREE.Mesh || child.isMesh) {
+                var scale = 8;
+                verticeslist.push(child.geometry.getAttribute("position").array);
+                verticestotal_length += child.geometry.getAttribute("position").array.length; vind++;
+                }
+            });
+            vertices = new Float32Array(verticestotal_length);
+            verticeslist.map(v=>{
+                vertices.set(v, verticestotal_length2);
+                verticestotal_length2 += v.length; console.log(v.length, verticestotal_length2)
+            })
+            p_geom.vertices = vertices;//list[3];
+            //console.log(verticeslist.length)
+            
+            
+            
+            let p_postn = parameters.postn?parameters.postn:[30,20,20];
+            let p_color = parameters.color?parameters.color:colors.bg_secondary;
+            p.material.color = new THREE.Color(p_color);
+            p_geom.setAttribute('position', new THREE.BufferAttribute( p_geom.vertices, 3 ));
+            p_geom.center();
+            p.position.set(p_postn[0], p_postn[1], p_postn[2]);
+            p.scale.x = p.scale.y = p.scale.z += 0.75;
+            scene.add(p);
+            particlesList.push(p);// p = object;
+            //animating
+            p.animsettings = animsettings;
+            if(!p.animsettings.autopendulumscale){   p.scale.x = p.scale.y = p.scale.z += 0.25;  }
+            if(!p.animsettings.autopendulumrotate){  p.rotation.y = 0;      }
+            return p;
         }
         function getRandomVertex(geometry){
             let positionAttribute = geometry.getAttribute( 'position' );
@@ -476,7 +474,7 @@ function ThreeLogic(container) {
         let addParticle = function(typeto){
             camera.position.set(0, 15.0, 100);
             camera.lookAt(new THREE.Vector3(0, 20, -100));
-            if(typeto=="head") controllerparticle();
+            if(typeto=="controller") controllerparticle();
             if(typeto=="shapes") othergeometry();
         }
         let transformParticle = function(typeto){

@@ -1,7 +1,7 @@
 import cdrawlogic from "./cdrawlogic.js";
 
-function AppCss(tms, threelogic){  
-    let ctx = this;
+function AppCss(){   
+    let ctx = this;/*
     document.querySelector(".page .about")
     .addEventListener("scroll", function(evt){ 
         tms.map((tm, ind)=>{
@@ -11,15 +11,15 @@ function AppCss(tms, threelogic){
             
             
             if(ind==2 && tm.inscreen && !tm.justoccured){ 
-                threelogic.particleManager.moveSphere(25);
+                //threelogic.particleManager.moveSphere(25);
                 tm.justoccured = true;
             }
             if(ind==2 && tm.inscreen && !tm.justoccured){ 
-                threelogic.particleManager.moveSphere(-25);
+                //threelogic.particleManager.moveSphere(-25);
                 tm.justoccured = true;
             }
             if(ind==3 && tm.inscreen && !tm.justoccured){ 
-                threelogic.particleManager.enterSphere();
+                //threelogic.particleManager.enterSphere();
                 tm.justoccured = true;
             }
             if(ind==4 && tm.inscreen && !tm.justoccured){
@@ -43,6 +43,7 @@ function AppCss(tms, threelogic){
             
         });
     });
+    */
     
 
     document.querySelector(".page .about .texts.text-last1").rotateAndZoom = function(){
@@ -78,17 +79,7 @@ function AppCss(tms, threelogic){
         if(postloadind>=xlist.length) return;
         xlist[postloadind].setAttribute("postload", "");
         postloadind++;
-        timecount += interval;
-        
-      
-       /*
-        //if(timecount%(interval*15)==0) blurind = 0; //restart at every 
-        xlist.map(x=>{
-            x.removeAttribute("blur", "");
-        });
-        if(blurind>=xlist.length) return;
-        xlist[blurind].setAttribute("blur", "");
-        blurind++; */
+        timecount += interval; 
     }, interval);
     
     

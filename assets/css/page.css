@@ -1,8 +1,9 @@
-html{
-  //width: 100%; //height: 100%; //overflow: auto;
+html {
+  width: auto; 
 }
-body.page{
-    width: 100%; height:  100%;
+body.page {
+    width: 100%; height:  100%; 
+    margin: 0; padding: 0;
     background: var(--bg-primary);
     color: var(--col-primary);
     line-height: 1.6;
@@ -11,16 +12,16 @@ body.page{
 }
 .page nav {
     z-index: 2;
-    width: 80%; display:  block;
-    height: 40px; box-sizing: border-box; //border: 0.2px solid transparent;
+    width: 90%; display:  block;
+    height: 40px; box-sizing: border-box; /*border: 0.2px solid transparent;*/
     border-radius: 200px; padding: 10px 40px;
     background-color: var(--col-primary);
     background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
-    //animation: nav-move-bg 0.5s infinite;
+    /* animation: nav-move-bg 0.5s infinite; */
     color: var(--col-tertiary);
     
     position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
-    vertical-align:  middle; text-align: center;
+    text-align: center;
 }
 .page nav a.nav-link{
     text-decoration: none; 
@@ -30,8 +31,9 @@ body.page{
 }
 .page nav a.nav-link:hover,a.nav-link:focus{
     color: var(--col-secondary);
-    //background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    /*background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%); */
 }
+
 
 
 
@@ -40,11 +42,38 @@ body.page{
 
 
 .page .sections {
-    overflow-y: hidden; z-index: -1;
+  overflow-y: hidden; z-index: -1;
 }
 .page .sections[gone]{
-    height: 0%;
+  height: 0%; width: 0%; display: none;
 }
+
+
+.page .sections.welcome {
+  opacity: 1; transition: opacity 1s ease-out;
+}
+.page .sections.about {
+  opacity: 1; transition: opacity 1s ease-out;
+} 
+
+
+.page[currentview="welcome"] .sections.welcome {
+  opacity: 1; transition-delay: 1s;
+}
+.page[currentview="about"] .sections.welcome {
+  opacity: 0;
+}
+.page[currentview="welcome"] .sections.about {
+  opacity: 0;
+}
+.page[currentview="about"] .sections.about {
+  opacity: 1; transition-delay: 1s;
+} 
+
+
+
+
+
 
 
 
@@ -53,226 +82,37 @@ SPLASHER
 *****/
 
 .page .splasher {
-    display: flex; width: 100%; height: 100%; 
-    position: absolute;
-    opacity: 1; 
-}
-
-
-
-
-/******
-WELCOME
-*******/
-
-.page .welcome {
-    display: flex; width: 100%; height: 100%; 
-    position: absolute;
-    opacity: 1;    transition: opacity 500ms ease;
-}
-.page .welcome .text {
-    width: 80%; display: block; box-sizing: border-box;
-    padding-top: 150px; padding-bottom: 100px;
-    padding-left: 50px;
-}
-.page .welcome .side2 {
-    width: 20%; display: block; box-sizing: border-box; padding-top: 100px; padding-right: 50px;
-}
-.page .welcome .main-text {
-    font-size: 50px; text-transform: uppercase;
-    color: var(--col-secondary);  position: relative;
-}
-.page .welcome .main-text span.highlight{
-    text-transform: uppercase;
-    color: var(--col-primary);
-}
-.page .welcome .main-text x {
-  font-family: inherit;
-  transition: opacity 500ms ease, letter-spacing 500ms ease; 
-  position: relative;
-  //letter-spacing: -50px; opacity: 0;
-}
-.page .welcome .main-text x:after {
-  content: ""; position: absolute; 
-  top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); opacity: 0;//1;
-  transition: top 1s ease, height 1s ease, opacity 1s ease;// filter: blur(5px);
-}
-.page .welcome .main-text x[postload]{
-  //letter-spacing: 0px; opacity: 1;
-}
-.page .welcome .main-text x[postload]:after {
-  content: ""; position: absolute; 
-  top: 0%; left: 0; width: 110%; height: 110%; background: var(--bg-primary); opacity: 0;
-  //animation: over-shadow 1s infinite; //animation-delay: 2s;
-}
-
-
-
-.page .welcome .main-text x:focus, x:hover{
-   opacity: 0.2;
-}
-.page .welcome .main-text x[postload]:focus:after, x[postload]:hover:after{
-   opacity: 0.2;
-}
-.page .welcome .main-text x[blur]{
-   opacity: 0.2; 
-}
-
-
-
-
-/**Page away**/
-.page .welcome .text {
-  transition: transform 1s, opacity .51s; 
-  transform: scale(2); opacity: 0;
-}
-.page .welcome[in-view="text"] .text {
-  transform: scale(1); opacity: 1;
-}
-
-
-
-
-
-.page .welcome .next-view {
-  display: block; width: 100%; height: 100%;
-  position: absolute; top: 100%; left: 0%;  
-  background: var(--bg-secondary-trsp);
-  box-sizing: border-box; padding: 20px; padding-top: 80px;
-  transition: top 1s, height 1s; transition-delay: 0.21s;
-}
-.page .welcome[in-view="next-view"]  .next-view  {
-  height: 100%; top: 30%;
-}
-
-
-.page .welcome .next-view .top{
-    display: flex; width: 100%; padding-bottom: 150px; box-sizing: padding-box;
-    flex-wrap: wrap;
-}
-.page .welcome .next-view .top side{
-    width: 30%; padding-left: 30%; padding-right: 10%;  flex-grow: 1;
-    background: green;
-}
-.page .welcome .next-view .top .main{
-    width: 70%; padding-left: 30%; padding-right: 10%; flex-grow: 1;
-    
-    font-size: 70px; text-transform: uppercase; text-align: center;
-    color: var(--bg-secondary);  position: relative;
-    
-    transition: opacity 2s; transition-delay: 1.2s;
-    opacity: 0;
-}
-.page .welcome[in-view="next-view"] .next-view .top .main{
+    display: flex; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    background-color: var(--bg-secondary);
+    overflow: hidden; /* Ensure child elements don't extend beyond this container */
+    /* Needed for the pseudo-element */
     opacity: 1;
 }
-.page .welcome .next-view .top sun{
-    width: 0px; height: 0px; 
-    transition: height 1s, width 1s; transition-delay: 1.5s;
-}
-.page .welcome[in-view="next-view"] .next-view .top sun{
-    width: 150px; height: 150px; 
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@keyframes over-shadow {
-  0% {
-    height: 20%;
-  }
-  50% {
-    height: 50%;
-  }
-  100% {
-    height: 20%;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.page .welcome .sub-text {
-    font-size: 22px; 
-    color: var(--col-primary);
+.page .splasher::before {
+    content: ''; /* Pseudo-element to overlay the background color */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-primary);
     opacity: 1;
-    transition: opacity 8s ease;
-}
-.page .welcome[gone] .sub-text {
-    opacity: 0;
+    animation: beam 2s infinite;
 }
 
-
-
-
-
-
-.page .sections.welcome {
-    opacity: 1;  transition: opacity 1s ease-out;
+@keyframes beam {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
 }
-.page .sections.about {
-    opacity: 1; transition: opacity 1s ease-out;
-}
-.page .welcome-abs threejs{
-    opacity: 1;  transition: opacity 1s ease-out;
-}
-
-
-
-.page[currentview="welcome"] .sections.welcome {
-     opacity: 1; transition-delay: 1s;
-}
-.page[currentview="about"] .sections.welcome {
-     opacity: 0;
-}
-.page[currentview="welcome"] .sections.about {
-     opacity: 0;
-}
-.page[currentview="about"] .sections.about {
-     opacity: 1; transition-delay: 1s;
-}
-.page[statechanging="yes"] .welcome-abs threejs{
-     opacity: 0;
-}
-
-
-
-
-
 
 
 
@@ -285,8 +125,6 @@ ABOUT
     position: absolute; overflow-y: scroll;
 }
 
-
-
 .page .about .texts {
     width: 100%; display: block; box-sizing: border-box;
     padding-top: 150px; padding-bottom: 100px;
@@ -294,7 +132,7 @@ ABOUT
     transition: color, transform 6s ease;
     color: var(--col-secondary);  
 }
-.page .about .texts[rot="180"]{;
+.page .about .texts[rot="180"]{
   transform: perspective(1000px) rotateY(180deg); 
 }
 .page .about .texts[rot="0"]{
@@ -363,7 +201,7 @@ ABOUT
   width: 100%; height: 100%; 
   background-color: var(--col-primary); color: var(--col-secondary);
   text-align: center; align-items: middle;
-  font-size: 60px; font-family: hF; //line-height: 100px;
+  font-size: 60px; font-family: hF; /*line-height: 100px;*/
   box-sizing: border-box; padding-left: 30%; padding-right: 30%;
   padding-top: 50px;
   transition: transform 2s ease;
@@ -395,61 +233,53 @@ ABOUT
 
 
 /* **GO_LINK*** */
-.page .go-link-cnt{
-    width: 100%; 
-    text-align: center; position: absolute; bottom: 10px;
-    pointer-events:  none;
-  z-index: 100; 
+.page .go-link-cnt {
+    display: inline-block; width: 80%; max-width: 600px;
+    text-align: center; 
+    position: absolute; top: 10px;
+    left: 50%; transform: translate(-50%, 0%);
+
+    pointer-events: cursor;
+    z-index: 100; 
+    transition: top 1.5s ease-in;
+    transition-delay: 3.0s;
+    border-radius: 50px;
+    padding: 0px .5rem; 
+
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    /*animation: nav-move-bg 1.5s infinite;*/
+}
+.page:not([currentview]) .go-link-cnt {
+    top: -100px; 
 }
 .page .go-link-cnt .go-link {
     z-index: 100;
     display: inline-block;
-    font-size: 20px; 
-    border: 1px solid var(--col-secondary); border-radius: 30px;
-    padding:  5px 25px; margin: 30px auto;
-    color: var(--col-secondary);
-    text-transform:  uppercase;
-    text-align:  center;
-    background-color: var(--col-secondary-trsp);
+    font-size: 1.2rem; 
+    border-radius: 30px;
+    padding: .1rem .8rem; 
+    color: var(--col-tertiary);
+    text-transform: uppercase;
+    text-align: center; 
     pointer-events: auto;
-    transition: padding 0.6s ease-out, opacity 1s ease-out; opacity: 0;
-    //background-image: linear-gradient(to bottom, var(--bg-primary), var(--bg-primary) ), linear-gradient(to bottom, var(--col-secondary-trsp), var(--col-secondary-trsp) );
-    background-position: center, center;
-    background-size: cover, cover;
-    background-repeat: no-repeat, no-repeat;
+    transition: padding 0.6s ease-out, opacity 1s ease-out; opacity: 0; 
+}
+.page .go-link-cnt .go-link{
+    display: inline-block; opacity: 1;
+    pointer-events: auto;
 }
 .page .go-link-cnt .go-link[opener]{
     display: inline-block; opacity: 1;
     pointer-events: auto;
 }
-.page .go-link-cnt:hover .go-link{
-    display: inline-block; opacity: 1;
-    pointer-events: auto;
-}
-
-
-.page .go-link:hover {
-    border: 1px solid var(--col-primary);
+.page .go-link-cnt .go-link:hover { 
     color: var(--col-primary);
-    background-color: var(--bg-secondary-trsp);
-    padding-right: 50px; padding-left: 50px;
-    //background-image: linear-gradient(to bottom, var(--bg-primary), var(--bg-primary) ), linear-gradient(to bottom, var(--bg-secondary-trsp), var(--bg-secondary-trsp) );
+    /*background-color: var(--bg-secondary-trsp); */
+    padding-right: 1.0rem; padding-left: 1.0rem;
 }
 
 
-
-
-
-
-.page .welcome-abs{
-    width: 100%; position: absolute; height: 100%; box-sizing: border-box;
-    top: 0%; left: 0%; 
-    pointer-events: none; z-index: -1;
-}
-.page .welcome-abs threejs{
-    width: 100%; height: 100%; display: block;
-}
-
+ 
 
 
 @keyframes nav-move-bg {
@@ -487,15 +317,85 @@ ABOUT
 @media  (max-width: 900px) {
   a.nav-link {
     font-size: 15px !important;
-  }
-  .page .welcome {
-    display: block; width: 100%;
+  }   
+}
+
+
+
+
+.page [a-bounce] {
+  animation: 8s bounce-inelastic infinite;
+  display: inline-block; /* Ensures that the element is treated as a block while maintaining its inline properties */
+}
+
+.page [a-bounce="1"] {
+  animation-delay: 1s;
+}
+
+.page [a-bounce="2"] {
+  animation-delay: 2s;
+}
+
+.page [a-bounce="3"] {
+  animation-delay: 3s;
+}
+
+@keyframes bounce-inelastic {
+  0%, 20%, 50%, 90%, 100% {
+    transform: translateY(0); 
+    transition-timing-function: ease-in;
+    color: var(--col-primary);
+    opacity: 1;
   }
 
-    .page .welcome .text {
-        width: 100%;
-    }
-    .page .welcome .side2 {
-        width: 0%; 
-    }
+  30% {
+    /*transform: translateY(-45px);*/ /* Adjust the bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.25;
+  }
+
+  60% {
+    /*transform: translateY(-25px);*/ /* Adjust the second bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.50;
+  }
+  
+  80% {
+    /*transform: translateY(-10px);*/ /* Adjust the second bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.75;
+  }
 }
+
+
+
+
+.page three-anim {
+  position: absolute; 
+  display: block; 
+  width: 100%; height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+/* Hide scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 0.5em; /* Adjust the width as needed */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hide the thumb */
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Hide the track */
+}
+
+ 

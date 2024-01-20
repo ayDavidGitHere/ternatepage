@@ -4,7 +4,7 @@
     display: block; width: 100%; height: 100%; 
     position: absolute; overflow-y: scroll;
         }
-          .page .gartpreview .top { //background-color: yellow; 
+          .page .gartpreview .top { 
     display: flex; width: 100%; color: var(--col-secondary); justify-content: left;
     padding: 50px; box-sizing: border-box; height: 30%; padding-bottom: 20px;
           }
@@ -14,7 +14,7 @@
     transition: line-height 0.8s ease-in, transform 2s; overflow: hidden; transition-delay: 1s; line-height: 120%; animation-delay: 1.2s; animation: t3d 4s infinite;
           }
           .page .gartpreview[gone] .top .title-header{
-    line-height: 500px; //padding-right: 100px; transform: rotate(5deg); 
+    line-height: 500px; transform: rotate(5deg); 
           }
           .page .gartpreview .top .story-text{
     font-size: 20%; width: 50%; height: 100%;
@@ -26,7 +26,7 @@
           }
           
           
-          .page .gartpreview .previews { //background-color:  green;
+          .page .gartpreview .previews { 
     display: flex; width: 100%; height: 50%; color: var(--col-secondary); justify-content: space-between; align-items: stretch;
     padding: 20px; box-sizing: border-box; padding-left: 70px; padding-right: 70px;
     flex-flow: row wrap; transition: padding-top 1s ease; padding-top: 20px;
@@ -62,7 +62,7 @@
     margin-top: 0%;
   }
   2.50% {
-  //  margin-top: 2.0%;
+    margin-top: 2.0%;
   }
   50% {
     margin-top: 5%;

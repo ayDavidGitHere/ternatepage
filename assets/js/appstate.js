@@ -26,7 +26,6 @@ function AppState(appCss=null){
         call();
     };
     this.showpage = function(pagename, call=()=>{}){
-        
         if(appCss && appCss.resetState) appCss.resetState();
         ctx.goneAllPages();
         ctx.pageso[pagename].removeAttribute("gone", "");

@@ -1,0 +1,315 @@
+
+/******
+WELCOME
+*******/
+
+.page .welcome {
+    width: 100%; height: 100%;  
+    padding: 0%; margin: 0%;
+
+    position: absolute; 
+    opacity: 1; transition: opacity 500ms ease;
+    overflow-y: scroll;
+    --headline-done-time: 3s;
+} 
+
+.page[currentview="welcome"] .welcome .first-view {
+  position: relative;
+  width: 100%;
+  height: 70%; 
+}
+ 
+.page[currentview="welcome"] .welcome .headline-text-cont {
+  position: absolute;
+  width: 80%; height: 9rem;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text {
+  width: 100%; height: 3.0rem;
+  display: inline-block;
+  font-size: 3.0rem; line-height: 3.0rem;
+  text-transform: uppercase;
+  color: var(--col-secondary);
+  overflow: hidden;
+  background-color: transparent; 
+  text-align: center;
+  box-sizing: border-box;
+  font-family: h7F;
+
+  z-index: 1; 
+}
+
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text { 
+  animation: 1s text-rise ease forwards;
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-top {
+  font-family: karla; 
+  animation-duration: 2.0s;
+  transform: rotate(-.2deg);
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-main-1 { 
+  animation-duration: 2.5s; 
+  transform: rotate(.1deg);
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-main-2 { 
+  animation-duration: 3.0s; 
+  transform: rotate(-.3deg);
+} 
+
+
+@keyframes text-rise { 
+    0% {
+      padding-top: 2.8rem;
+    } 
+    70% {
+      padding-top: 2.8rem;
+    } 
+    100%{
+      padding-top: 0px;
+    } 
+}
+
+
+
+
+
+.page .welcome .next-view {
+  width: 100%; height: 100%;
+}
+
+.page .welcome .next-view {
+  display: flex; width: 100%; height: 100vh;
+  justify-content: center;
+  flex-flow: row-wrap;
+  padding: 0%; margin: 0%; 
+  position: relative; box-sizing: border-box;
+  /*border: 1px solid green;*/
+} 
+
+.page .welcome .next-view .side1 {
+  width: 50%; height: 100%;
+  display: block; box-sizing: border-box;
+  padding-top: 0%; 
+  /*border: 1px solid yellow;*/
+
+  opacity: 0;
+  animation: 2s side1-rise ease-out;
+  animation-delay: var(--headline-done-time);
+  animation-fill-mode: forwards;
+}
+.page .welcome .next-view .side2 {
+  width: 50%; height: 100%;
+  display: block; box-sizing: border-box;  
+  /*border: 1px solid purple;*/
+}
+
+
+
+.page .welcome .t3d-cnt {
+  position: relative;
+  display: block; 
+  width: 100%; height: 100%; 
+  margin-top: calc(0% - 0px);
+  /*border: 1px solid brown;*/
+}
+.page .welcome .t3d-cnt three-anim{
+  /*border: 1px solid blueviolet;*/
+}
+
+
+
+
+
+
+.page .welcome .side2 {
+  overflow-y: scroll;
+}
+.page .welcome .text-info-section {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 25.0% auto;
+  margin-bottom: 75.0%;
+  padding: 20px; padding-left: 20%; padding-right: 20%;
+  padding-top: 100%;
+  box-sizing: border-box;
+  animation: 2s text-info-rise ease-out;
+  animation-delay: var(--headline-done-time);
+  animation-fill-mode: forwards;
+}
+
+.page .welcome .text-info-section .info-note {
+  font-family: iFj;
+  color: var(--col-primary);
+  font-size: 1.0rem;
+}
+
+.page .welcome .text-info-section .info-header {
+  font-family: hF1;
+  color: var(--col-primary);
+  font-size: 2.5rem;
+}
+
+.page .welcome .text-info-section .info-detail {
+  font-family: karla;
+  color: var(--col-secondary);
+  font-size: 1.2rem;
+}
+
+
+@keyframes text-info-rise { 
+    0% {
+      padding-top: 100%;
+    }  
+    100%{
+      padding-top: 0px;
+    } 
+}
+@keyframes side1-rise { 
+    0% {
+      opacity: 0;
+    }  
+    100%{
+      opacity: 1;    
+    } 
+}
+
+
+
+
+
+
+
+
+
+
+
+.page .welcome .third-view {
+  width: 100%; height: 100%;
+  background-color: var(--col-secondary);
+  display: flex; width: 100%; height: 100vh;
+  justify-content: center;
+  flex-flow: row-wrap;
+  padding: 0%; margin: 0%; 
+  position: relative; box-sizing: border-box;
+  /*border: 1px solid azure; */
+}
+
+.page .welcome .third-view .side-left {
+  width: 60%; height: 100%;
+}
+
+.page .welcome .third-view .side-right {
+  width: 40%; height: 100%;
+}
+
+
+.page .welcome .third-view .side-left .large-text {
+  font-family: hF1;
+  font-size: 3.5rem;
+  color: var(--col-tertiary);
+  padding-left: 100px;   padding-left: 80px;
+  padding-top: 100px;
+}
+
+
+
+
+
+
+.page .welcome .last-view {
+    position: relative;
+    width: 100%;
+    height: 70%; 
+    background: var(--bg-secondary-trsp);
+    /*border: 1px solid yellow;*/
+}
+
+
+.page .welcome .major-text-cont {
+  position: relative; 
+  top: calc(50% - 10rem);
+  /*border: 1px solid green;*/
+}
+.page .welcome .major-text {
+  width: 100%; height: 5.0rem;
+  display: inline-block;
+  font-size: 5.0rem; line-height: 5.0rem;
+  text-transform: uppercase;
+  color: var(--col-secondary);
+  overflow: hidden;
+  background-color: transparent; 
+  text-align: center;
+  box-sizing: border-box;
+  font-family: h7F;
+
+
+  z-index: 1; 
+  /*border: 1px solid yellow;*/
+}
+
+
+.page .welcome[in-view="last-view"] .major-text { 
+  animation: 1s text-rise-major-text ease forwards;
+}
+
+.page .welcome .major-text-top {
+  font-family: hF1; font-size: 4.0rem; 
+  animation-duration: 2.0s;
+  transform: rotate(-.2deg);
+}
+
+.page .welcome .major-text-main-1 { 
+  font-family: hF1; 
+  animation-duration: 2.5s; 
+  transform: rotate(.1deg);
+}
+
+.page .welcome .major-text-note { 
+  font-family: karla; font-size: 1.0rem; 
+  animation-duration: 3.0s; 
+  transform: rotate(-.3deg);
+} 
+@keyframes text-rise-major-text { 
+    0% {
+      padding-top: 5.0rem;
+    } 
+    100%{
+      padding-top: 0px;
+    } 
+}
+
+
+
+
+.page .welcome .last-view-footer {
+    position: absolute;
+    top: 100%; width: 100%;
+    transform: translateY(-100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--col-secondary);
+}
+
+.page .welcome .last-view-footer * {
+    font-family: nb;
+}
+.page .welcome .last-view-footer .left-text {
+    margin-right: auto;  /* Push to the left */
+}
+
+.page .welcome .last-view-footer .center-icons {
+    display: flex;
+    gap: 10px;  /* Adjust the gap between icons */
+}
+
+.page .welcome .last-view-footer .right-text {
+    margin-left: auto;  /* Push to the right */
+}

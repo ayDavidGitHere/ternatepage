@@ -1,0 +1,362 @@
+html {
+  width: auto; 
+}
+body.page {
+    width: 100%; height:  100%; 
+    margin: 0; padding: 0;
+    background: var(--bg-primary);
+    color: var(--col-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.page nav {
+    z-index: 2;
+    width: 80%; display:  block;
+    height: 40px; box-sizing: border-box; /*border: 0.2px solid transparent;*/
+    border-radius: 200px; padding: 10px 40px;
+    background-color: var(--col-primary);
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    /* animation: nav-move-bg 0.5s infinite; */
+    color: var(--col-tertiary);
+    
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+    text-align: center;
+}
+.page nav a.nav-link{
+    text-decoration: none; 
+    display: inline-block; padding: 0px 16px;
+    font-size: 20px; line-height: 20px;
+    font-family: Courier; 
+}
+.page nav a.nav-link:hover,a.nav-link:focus{
+    color: var(--col-secondary);
+    /*background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%); */
+}
+
+
+
+
+
+
+
+
+.page .sections {
+  overflow-y: hidden; z-index: -1;
+}
+.page .sections[gone]{
+  height: 0%; width: 0%; display: none;
+}
+
+
+.page .sections.welcome {
+  opacity: 1; transition: opacity 1s ease-out;
+}
+.page .sections.about {
+  opacity: 1; transition: opacity 1s ease-out;
+} 
+
+
+.page[currentview="welcome"] .sections.welcome {
+  opacity: 1; transition-delay: 1s;
+}
+.page[currentview="about"] .sections.welcome {
+  opacity: 0;
+}
+.page[currentview="welcome"] .sections.about {
+  opacity: 0;
+}
+.page[currentview="about"] .sections.about {
+  opacity: 1; transition-delay: 1s;
+} 
+
+
+
+
+
+
+
+
+/*****
+SPLASHER
+*****/
+
+.page .splasher {
+    display: flex; width: 100%; height: 100%; 
+    position: absolute; background-color: var(--bg-secondary);
+    opacity: 1; animation: beam 2s infinite;
+}
+
+@keyframes beam {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+/******
+ABOUT
+*******/
+.page .about {
+    display: block; width: 100%; height: 100%; 
+    position: absolute; overflow-y: scroll;
+}
+
+.page .about .texts {
+    width: 100%; display: block; box-sizing: border-box;
+    padding-top: 150px; padding-bottom: 100px;
+    padding-left: 50px; margin: 0;  
+    transition: color, transform 6s ease;
+    color: var(--col-secondary);  
+}
+.page .about .texts[rot="180"]{
+  transform: perspective(1000px) rotateY(180deg); 
+}
+.page .about .texts[rot="0"]{
+  transform: perspective(1000px) rotateY(0deg);
+  color: var(--col-primary);  
+}
+.page .about .texts[rot="0"][zoom]{
+  transform: perspective(1000px) rotateY(0deg) scale(40.5, 40.5);
+}
+
+.page .about .texts .main-text {
+    font-size: 35px; text-align: center;
+    transition: line-height 1500ms ease;
+    line-height: 150px;
+}
+.page .about .texts[inscreen] .main-text {
+    line-height: 60px;
+}
+
+
+.page .about .texts.text-main1 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-top: 150px; 
+}
+.page .about .texts.text-main1 .main-text {
+    text-align:  center;
+}
+
+.page .about .texts.text-next1 {
+    padding-left: 10%; padding-right: 45%; margin: 0; 
+}
+.page .about .texts.text-next1 .main-text {
+    text-align:  left;
+}
+
+
+.page .about .texts.text-next2 {
+    padding-left: 45%; padding-right: 10%; margin: 0; 
+}
+.page .about .texts.text-next2 .main-text {
+    text-align:  right;
+}
+
+
+
+.page .about .texts.text-next3 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-bottom: 150px; 
+}
+.page .about .texts.text-next3 .main-text {
+    text-align:  center;
+}
+
+
+
+.page .about .texts.text-last1 {
+    padding-left: 25%; padding-right: 25%; 
+    margin-bottom: 150px; 
+}
+.page .about .texts.text-last1 .main-text {
+    text-align:  center;
+}
+
+
+.page .boxs{ 
+  width: 100%; height: 100%; 
+  background-color: var(--col-primary); color: var(--col-secondary);
+  text-align: center; align-items: middle;
+  font-size: 60px; font-family: hF; /*line-height: 100px;*/
+  box-sizing: border-box; padding-left: 30%; padding-right: 30%;
+  padding-top: 50px;
+  transition: transform 2s ease;
+  transform:  rotateY(0deg);
+}
+
+.page .boxs[rot]{
+  transform: perspective(1000px) rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* **GO_LINK*** */
+.page .go-link-cnt{
+    width: 100%; 
+    text-align: center; 
+    position: absolute; top: 10px;
+    pointer-events: none;
+    z-index: 100; 
+    transition: top 4s ease-out;
+}
+.page:not([currentview]) .go-link-cnt {
+    top: -100px; 
+}
+.page .go-link-cnt .go-link {
+    z-index: 100;
+    display: inline-block;
+    font-size: 20px; 
+    border: 1px solid var(--col-secondary); border-radius: 30px;
+    padding:  5px 25px; margin: 30px auto;
+    color: var(--col-secondary);
+    text-transform:  uppercase;
+    text-align:  center;
+    background-color: var(--col-secondary-trsp);
+    pointer-events: auto;
+    transition: padding 0.6s ease-out, opacity 1s ease-out; opacity: 0; 
+    background-position: center, center;
+    background-size: cover, cover;
+    background-repeat: no-repeat, no-repeat;
+}
+.page .go-link-cnt .go-link{
+    display: inline-block; opacity: 1;
+    pointer-events: auto;
+}
+.page .go-link-cnt .go-link[opener]{
+    display: inline-block; opacity: 1;
+    pointer-events: auto;
+}
+.page .go-link-cnt .go-link:hover {
+    border: 1px solid var(--col-primary);
+    color: var(--col-primary);
+    background-color: var(--bg-secondary-trsp);
+    padding-right: 50px; padding-left: 50px; 
+}
+
+
+ 
+
+
+@keyframes nav-move-bg {
+  0% {
+    background: linear-gradient(90deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  }
+  12.5% {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 12.5%, var(--bg-primary) 100%);
+  }
+  25% {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 25%, var(--bg-primary) 100%);
+  }
+  37.5% {
+      background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 37.5%, var(--bg-primary) 100%);
+  }
+  50% {
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  }
+  62.5% {
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 62.5%, var(--bg-primary) 100%);
+  }
+  75% {
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 75%, var(--bg-primary) 100%);
+  }
+  87.5% {
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 87.5%, var(--bg-primary) 100%);
+  }
+  100%{
+    background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  }
+}
+
+
+
+@media  (max-width: 900px) {
+  a.nav-link {
+    font-size: 15px !important;
+  }   
+}
+
+
+
+
+.page [a-bounce] {
+  animation: 8s bounce-inelastic infinite;
+  display: inline-block; /* Ensures that the element is treated as a block while maintaining its inline properties */
+}
+
+.page [a-bounce="1"] {
+  animation-delay: 1s;
+}
+
+.page [a-bounce="2"] {
+  animation-delay: 2s;
+}
+
+.page [a-bounce="3"] {
+  animation-delay: 3s;
+}
+
+@keyframes bounce-inelastic {
+  0%, 20%, 50%, 90%, 100% {
+    transform: translateY(0); 
+    transition-timing-function: ease-in;
+    color: var(--col-primary);
+    opacity: 1;
+  }
+
+  30% {
+    /*transform: translateY(-45px);*/ /* Adjust the bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.25;
+  }
+
+  60% {
+    /*transform: translateY(-25px);*/ /* Adjust the second bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.50;
+  }
+  
+  80% {
+    /*transform: translateY(-10px);*/ /* Adjust the second bounce height */ 
+    transition-timing-function: ease-out; 
+    opacity: 0.75;
+  }
+}
+
+
+
+
+.page three-anim {
+  position: absolute; display: block; width: 100%; height: 100%;
+}
+
+
+
+
+
+ 

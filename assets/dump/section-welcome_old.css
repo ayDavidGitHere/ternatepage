@@ -1,0 +1,316 @@
+
+
+
+
+/******
+WELCOME
+*******/
+
+.page .welcome {
+    width: 100%; height: 100%;  
+    padding: 0%; margin: 0%;
+
+    position: absolute; 
+    opacity: 1; transition: opacity 500ms ease;
+}
+.page .welcome .first-view {
+    display: flex; width: 100%; height: 100vh;
+    justify-content: center;
+    flex-flow: row-wrap;
+    padding: 0%; margin: 0%; 
+    position: relative; box-sizing: border-box;
+}
+.page .welcome .next-view {
+  width: 100%; height: 100%;  
+}
+
+
+.page .welcome .first-view .side1 {
+    width: 60%; height: 100%;
+    display: block; box-sizing: border-box;
+    padding-top: 0%;
+    padding-left: 50px; 
+    padding-top: 25vh;
+}
+.page .welcome .first-view .side2 {
+  width: 40%; height: 100%;
+  display: block; box-sizing: border-box;  
+}
+
+
+.page .welcome .first-view .side1,
+.page .welcome .first-view .side2 { 
+  transform: scale(2); opacity: 0;
+  transition: transform 1s, opacity .51s;  
+}
+.page .welcome[in-view="first-view"] .first-view .side1,
+.page .welcome[in-view="first-view"] .first-view .side2 {
+  transform: scale(1); opacity: 1; 
+}
+
+
+
+
+
+.page .welcome .first-view .side1 .main-text {
+    font-size: 3.5rem; text-transform: uppercase;
+    color: var(--col-secondary); position: relative;
+}
+.page .welcome .first-view .side1 .main-text span.highlight{
+    text-transform: uppercase;
+    color: var(--col-primary);
+}
+.page .welcome .first-view .side1 .main-text x {
+  font-family: inherit;
+  transition: opacity 500ms ease, letter-spacing 500ms ease; 
+  position: relative;
+  /*letter-spacing: -50px;*/ opacity: 0; 
+}
+.page .welcome .first-view .side1 .main-text x:after {
+  content: ""; position: absolute; 
+  top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); opacity: 0;
+  transition: top 1s ease, height 1s ease, opacity 1s ease; 
+}
+.page .welcome .first-view .side1 .main-text x[postload]{
+   /*letter-spacing: 0px;*/
+   opacity: 1;
+}
+.page .welcome .first-view .side1 .main-text x[postload]:after {
+  content: ""; position: absolute; 
+  top: 0%; left: 0; width: 110%; height: 110%; background: var(--bg-primary); opacity: 0;
+  /*animation: over-shadow 1s infinite; animation-delay: 2s; */
+}
+.page .welcome .first-view .side1 .main-text x:focus, x:hover{
+   opacity: 0.2;
+}
+.page .welcome .first-view .side1 .main-text x[postload]:focus:after, x[postload]:hover:after{
+   opacity: 0.2;
+}
+.page .welcome .first-view .side1 .main-text x[blur]{
+   opacity: 0.2; 
+}
+
+ 
+ 
+
+.page .welcome .first-view .side2 .t3d-cnt {
+  width: 80%; height: 50%;
+  position: relative;
+  left: 50%; top: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+.page .welcome .next-view {
+  display: block; width: 100%; height: 100%;
+  position: absolute; top: 100%; left: 0%;  
+  background: var(--bg-secondary-trsp);
+  box-sizing: border-box; padding: 20px; padding-top: 80px;
+  transition: top 1s, height 1s; transition-delay: 0.21s;
+}
+
+
+.page .welcome .next-view .top{
+    display: flex; width: 100%; padding-bottom: 150px; box-sizing: padding-box;
+    flex-wrap: wrap;
+}
+.page .welcome .next-view .top side{
+    width: 30%; padding-left: 30%; padding-right: 10%;  flex-grow: 1;
+    background: green;
+}
+.page .welcome .next-view .top .main{
+    width: 70%; padding-left: 30%; padding-right: 10%; flex-grow: 1;
+    
+    font-size: 70px; text-transform: uppercase; text-align: center;
+    color: var(--bg-secondary);  position: relative;
+    
+    transition: opacity 2s; transition-delay: 1.2s;
+    opacity: 0;
+}
+.page .welcome .next-view .top sun{
+    width: 0px; height: 0px; 
+    transition: height 1s, width 1s; transition-delay: 1.5s;
+}
+
+
+
+.page .welcome[in-view="next-view"] .next-view  {
+    height: 100%; top: 30%;
+}
+.page .welcome[in-view="next-view"] .next-view .top .main{
+    opacity: 1;
+}
+.page .welcome[in-view="next-view"] .next-view .top sun{
+    width: 150px; height: 150px; 
+}
+
+
+
+
+
+.page .welcome .sub-text {
+    font-size: 22px; 
+    color: var(--col-primary);
+    opacity: 1;
+    transition: opacity 8s ease;
+}
+.page .welcome[gone] .sub-text {
+    opacity: 0;
+}
+
+
+
+
+
+@media  (max-width: 900px) { 
+      .page .welcome {
+        display: block; width: 100%;
+      }
+      .page .welcome .side1 {
+          width: 100%;
+      }
+      .page .welcome .side2 {
+          width: 100%; 
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* SUN */
+  
+
+
+sun {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border-bottom: 1px solid var(--col-secondary);
+  position: absolute; top: 10%; left: 10%;
+  animation: rotate 5s linear infinite;
+}
+
+sun::before, sun::after {
+  content: "";
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  transform: translate(50%, 50%);
+  border: 1px solid var(--col-secondary);
+  animation: rotate 5s linear infinite;
+  clip-path: url(#concave-star-shape);
+} 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* SUN */
+
+
+
+
+
+
+
+
+
+game-cnt {
+  width: 300px;
+  height: 300px; 
+  display: block;
+  position: absolute; top: 10%; left: 10%;
+  background-color: green; 
+  position: relative;
+}
+
+
+
+
+
+
+
+
+
+.page[currentview="welcome"] .welcome .headline-text-cont {
+  position: absolute;
+  width: 80%; height: 225px;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text {
+  width: 100%; height: 33%;
+  font-size: 65px; text-transform: uppercase;
+  color: var(--col-secondary);
+  background-color: white;
+  border-color: 1px solid yellow;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: h7F;
+
+  z-index: 1;
+
+  background: -webkit-linear-gradient(to bottom, #eee, green);
+  background-clip: text; 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text { 
+  animation: 1s text-rise ease-out;
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-top {
+  font-family: karla; 
+  animation-duration: 2.0s;
+  transform: rotate(-.2deg);
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-main-1 { 
+  animation-duration: 2.5s; 
+  transform: rotate(.1deg);
+}
+
+.page[currentview="welcome"] .welcome .headline-text-cont .headline-text-main-2 { 
+  animation-duration: 3.0s; 
+  transform: rotate(-.3deg);
+} 
+
+
+
+
+@keyframes text-rise { 
+    0% {
+      padding-top: 75px;
+    } 
+    80% {
+      padding-top: 75px;
+    } 
+    100%{
+      padding-top: 0px;
+    } 
+}

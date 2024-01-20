@@ -1,9 +1,7 @@
-
-
 * {
     margin: 0;
     padding: 0;
-    font-family:  Courier;
+    font-family: Courier;
 }
 :root {
     --crimson:#dc1e3f;
@@ -105,10 +103,17 @@
     font-family: iFk;
 }
 @font-face{
+    src: url("../fonts/LeagueScript-Regular.ttf");
+    font-family: iFl;
+}
+@font-face{
     src: url("../fonts/Uni Sans Heavy.otf");
     font-family: h7F;
 }
-
+@font-face{
+    src: url("../fonts/LeagueGothic-Regular.ttf");
+    font-family: hF1;
+}
 
 
 
@@ -118,7 +123,7 @@
     font-family: leaguespartanbold;
 }
 [fnt-pF]{
-    font-family: karla;
+    font-family: karla; 
 }
 [fnt-p3F]{
     font-family: nb;
@@ -142,32 +147,25 @@
 
 
 
-sun {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border-bottom: 1px solid var(--col-secondary);
-  position: absolute; top: 10%; left: 10%;
-  animation: rotate 5s linear infinite;
+
+[app-icon="pause"] { 
+    background: transparent;
+}
+[app-icon="pause"]:before {
+    content: "\23F8";  
 }
 
-sun::before, sun::after {
-  content: "";
-  width: 10%;
-  height: 10%;
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  transform: translate(50%, 50%);
-  border: 1px solid var(--col-secondary);
-  animation: rotate 5s linear infinite;
-  clip-path: url(#concave-star-shape);
+[app-icon="play"] { 
+    background: transparent;
 }
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+[app-icon="play"]:before {
+    content: "\25B6"; 
 }
+
+[app-icon="reload"] { 
+    background: transparent;
+}
+[app-icon="reload"]:before {
+    content: "\21BB";  
+}
+

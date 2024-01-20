@@ -1,19 +1,22 @@
 {
-  "name": "app",
-  "scripts": {
-    "dev": "php -S 0.0.0.0:7001",
-    "dev:win": "php -S localhost:7001",
-    "build": "webpack --watch"
-  },
-  "dependencies": {
-    "gsap": "^3.11.3",
-    "terser-webpack-plugin": "^5.3.6",
-    "three": "^0.146.0"
-  },
-  "devDependencies": {
-    "gsap": "^3.11.3",
-    "three": "^0.146.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.1.4"
-  }
+    "name": "app",
+    "scripts": {
+        "dev": "php -S 0.0.0.0:7001",
+        "dev:win": "php -S localhost:7001",
+        "build": "webpack --watch"
+    },
+    "dependencies": {
+        "canvas": "^2.11.2",
+        "gsap": "^3.11.3",
+        "terser-webpack-plugin": "^5.3.6",
+        "three": "^0.146.0",
+        "vblob": "^1.1.0"
+    },
+    "devDependencies": {
+        "dat.gui": "^0.7.9",
+        "gsap": "^3.11.3",
+        "three": "^0.146.0",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.1.4"
+    }
 }
