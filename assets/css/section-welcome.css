@@ -298,18 +298,18 @@ WELCOME
     color: var(--col-secondary);
 }
 
-.page .welcome .last-view-footer * {
-    font-family: nb;
-}
 .page .welcome .last-view-footer .left-text {
+    font-family: karla;
     margin-right: auto;  /* Push to the left */
 }
 
 .page .welcome .last-view-footer .center-icons {
     display: flex;
-    gap: 10px;  /* Adjust the gap between icons */
+    gap: 20px;  /* Adjust the gap between icons */
+    font-size: 1.2rem;
 }
 
 .page .welcome .last-view-footer .right-text {
+    font-family: karla;
     margin-left: auto;  /* Push to the right */
 }
