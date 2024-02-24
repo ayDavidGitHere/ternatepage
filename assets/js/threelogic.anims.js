@@ -34,7 +34,7 @@ let superctx = {preloads:{}, preloaders:{}};
 
 
 
-function Start(container, sizing = {}, objectSizingAttrs={objectScale:12, particleScale:1}, objectAnimAttrs={}) {
+function AnimEngine(container, sizing = {}, objectSizingAttrs={objectScale:12, particleScale:1}, objectAnimAttrs={}) {
     let objectScale = objectSizingAttrs.objectScale;
     let particleScale = objectSizingAttrs.particleScale;
     let particleColor = objectSizingAttrs.particleColor;
@@ -560,72 +560,136 @@ function Start(container, sizing = {}, objectSizingAttrs={objectScale:12, partic
     });
 }
 
+class Anim {
+  
+  constructor(element_) {
+    this.element = element_;
+  }
+  zoom () {
+      console.log("zooming");
+  } 
 
+}
 
+class ThreeAnims {
+  constructor() {
+    this.animsList = {};
+    this.setAnimsListeners = [];
+    this.calledSetAnim = false;
+  }
 
-function processContainerAttrs(container) {
-    let attrs = {}; 
+  processanimElementAttrs(animElement) {
+    let attrs = {};
 
-    let draw  = container.getAttribute("draw") ?? "head";
-    console.log("drawing: ", draw);  
+    let draw = animElement.getAttribute("draw") ?? "head"; 
 
-    let objectScale  = Number(container.getAttribute("size") ?? 1);
+    let objectScale = Number(animElement.getAttribute("size") ?? 1);
     //console.log("objectScale: ", objectScale);
-    
-    let particleScale  = Number(container.getAttribute("p-size") ?? 1); 
-    //console.log("particleScale: ", particleScale);
-    
-    let particleColor  = (container.getAttribute("p-color") ?? "crimson");
-    if(particleColor.includes("--")) 
-        particleColor = window.getComputedStyle(document.documentElement).getPropertyValue(particleColor);
-    console.log("particleColor: ", particleColor, typeof particleColor);
 
-    let objectSizingAttrs = {}; 
+    let particleScale = Number(animElement.getAttribute("p-size") ?? 1);
+    //console.log("particleScale: ", particleScale);
+
+    let particleColor = animElement.getAttribute("p-color") ?? "crimson";
+    if (particleColor.includes("--"))
+      particleColor = window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue(particleColor); 
+
+    let objectSizingAttrs = {};
     objectSizingAttrs.objectScale = objectScale;
     objectSizingAttrs.particleScale = particleScale;
     objectSizingAttrs.particleColor = particleColor;
 
-
     let objectAnimAttrs = {};
-    if(container.hasAttribute("zoominout_auto")) objectAnimAttrs.autopendulumscale = Number(container.getAttribute("zoominout_auto") ?? 1);
-    if(container.hasAttribute("rot_mouse")) objectAnimAttrs.mouserotate = 1;
+    if (animElement.hasAttribute("zoominout_auto"))
+      objectAnimAttrs.autopendulumscale = Number(
+        animElement.getAttribute("zoominout_auto") ?? 1
+      );
+    if (animElement.hasAttribute("rot_mouse")) objectAnimAttrs.mouserotate = 1;
 
     attrs.draw = draw;
-    attrs.objectSizingAttrs = objectSizingAttrs; 
-    attrs.objectAnimAttrs = objectAnimAttrs; 
+    attrs.objectSizingAttrs = objectSizingAttrs;
+    attrs.objectAnimAttrs = objectAnimAttrs;
     //console.log("attrs", attrs)
 
     return attrs;
-}
-function setAnims(){
-    [...document.querySelectorAll(".page .sections[app-page]:not([gone]) three-anim")]
-    .map(container=>{ 
-        if(container.getAttribute("loaded") && container.getAttribute("reloadable")==undefined)
-        return;
-        container.setAttribute("loaded", "true");
+  }
 
-        container.width = "100%";
-        container.height = "100%";
+  setAnims() { 
+    let animElementSetList = [];
+    [
+      ...document.querySelectorAll(
+        ".page .sections[app-page]:not([gone]) three-anim"
+      ),
+    ].map((animElement) => {
+      if (
+        animElement.getAttribute("loaded") &&
+        animElement.getAttribute("reloadable") == undefined
+      )
+      return; 
+      animElementSetList.push(animElement);
+      animElement.setAttribute("loaded", "true");
 
-        container.style.width = "100%";
-        container.style.height = "100%"; 
- 
+      animElement.width = "100%";
+      animElement.height = "100%";
 
-        let attrs = processContainerAttrs(container); 
+      animElement.style.width = "100%";
+      animElement.style.height = "100%";
 
-        let start = new Start(container, {clientHeight: container.clientHeight}, attrs.objectSizingAttrs, attrs.objectAnimAttrs);
-        start.particleManager.addParticle(attrs.draw);
+      let attrs = this.processanimElementAttrs(animElement);
+
+      let animEngine = new AnimEngine(
+        animElement,
+        { clientHeight: animElement.clientHeight },
+        attrs.objectSizingAttrs,
+        attrs.objectAnimAttrs
+      );
+      animEngine.particleManager.addParticle(attrs.draw);
+      this.animsList[`${Math.random() * 10000}`] = new Anim(animElement);
     });
-}//EO setAnims
-function preloadAssets(callback){
-    console.log("preloadAssets")
-    let container = document.body.children[0]; 
+    if(animElementSetList.length < 1) return;
+ 
+    this.setAnimsListeners.map(listener=>{ 
+        listener();
+    });
+    this.calledSetAnim = true;
+  }
 
-    let start = new Start(container, {clientHeight: container.clientHeight});
+  addSetAnimsListener(callback) {
+    if(this.calledSetAnim) { 
+        callback();
+    }else {
+        this.setAnimsListeners.push(callback);
+    }
+  }
+
+  getAnim(selector) {
+    let anim = null;
+    let element = document.querySelector(selector); 
+    Object.values(this.animsList).map((anim_) => {
+      if (anim_.element == element) {
+        anim = anim_;
+      }
+    }); 
+    return anim;
+  }
+
+  preloadAssets(callback) {
+    let animElement = document.body.children[0];
+
+    let animEngine = new AnimEngine(animElement, {
+      clientHeight: animElement.clientHeight,
+    });
     superctx.preloaders.head(true).load(callback);
     superctx.preloaders.fish(true).load(callback);
     superctx.preloaders.controller(true).load(callback);
+  }
 }
-let threeanims = {setAnims, preloadAssets};
+
+let threeanims = new ThreeAnims();
 document.addEventListener("DOMContentLoaded", function(){threeanims.setAnims();});
+
+
+
+
 export default threeanims;

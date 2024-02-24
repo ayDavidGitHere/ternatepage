@@ -5,7 +5,7 @@
 }
 :root {
     --crimson:#dc1e3f;
-    --bg-primary:#000817;
+    --bg-primary:#000102;/*#000817;*/
     --bg-secondary:#dc1e3f;
     --col-primary:#dc1e3f;
     --col-secondary:#ffffff;
@@ -58,6 +58,7 @@
 
 
 
+
 @font-face{
  src: url("../fonts/Karla-Regular.ttf");   
  font-family: karla;
@@ -105,6 +106,10 @@
 @font-face{
     src: url("../fonts/LeagueScript-Regular.ttf");
     font-family: iFl;
+}
+@font-face{
+    src: url("../fonts/scriptin.ttf");
+    font-family: iFm;
 }
 @font-face{
     src: url("../fonts/Uni Sans Heavy.otf");

@@ -16,23 +16,26 @@
         <section class="sections splasher" app-page="splasher"></section>
 
         <section class="sections welcome" app-page="welcome" in-view="first-view" gone>
-            <div class="first-view">
+            <div class="in-view first-view">
                 <div class="headline-text-cont">
                     <p class="headline-text headline-text-top" css-appear-from-bottom
+                    data-title="Explore"
                     >
                         Explore
                     </p>
                     <p class="headline-text headline-text-main-1"css-appear-from-bottom
+                    data-title="AYDAVID'S"
                     >
                         AYDAVID'S
                     </p>
                     <p class="headline-text headline-text-main-2"css-appear-from-bottom
+                    data-title="WEB CANVAS"
                     >
                         WEB CANVAS
                     </p>
                 </div>
             </div>
-            <div class="next-view">
+            <div class="in-view next-view">
                 <div class="side1">
                     <div class="t3d-cnt">
                         <three-anim 
@@ -41,6 +44,7 @@
                             p-size="0.4" 
                             rot_mouse
                             zoominout_auto="2"
+                            id="head-anim"
                         ></three-anim>
                     </div>
                 </div>
@@ -71,7 +75,7 @@
                     <bottom-tag style="display: block; height:0px; background: green; width: 100%;"></bottom-tag> 
                 </div>
             </div>
-            <div class="third-view">
+            <div class="in-view third-view">
                 <div class="side-left"> 
                     <h3 class="large-text">
                         YOU'RE READY TO EXPERIENCE THE WEB ENVIRONMENT AT IT PEAK OF VALUE
@@ -93,11 +97,11 @@
 
                 </div>
             </div>
-            <div class="last-view">
+            <div class="in-view last-view">
                 <div class="major-text-cont">
                     <p class="major-text major-text-top" css-appear-from-bottom
                     >
-                        JS AND
+                        THE JS AND
                     </p>
                     <p class="major-text major-text-main-1"css-appear-from-bottom
                     >
@@ -106,7 +110,29 @@
                     <p class="major-text major-text-note" 
                     >
                         Check back for more of everything.
-                    </p>
+                    </p> 
+                </div>
+                <div class="t3d-cnt cnt-1">
+                <three-anim 
+                    p-color="#ffffff"
+                    draw="circle" 
+                    size="1" 
+                    p-size="0.2" 
+                    rot_mouse
+                    zoominout_auto="25"
+                    id="bottom-anim"
+                ></three-anim> 
+                </div>
+                <div class="t3d-cnt cnt-2">
+                <three-anim 
+                    p-color="#ffffff"
+                    draw="circle" 
+                    size="2" 
+                    p-size="0.2" 
+                    rot_mouse
+                    zoominout_auto="25"
+                    id="bottom-anim"
+                ></three-anim> 
                 </div>
                 <div class="last-view-footer">
                     <p class="left-text">Copyright 2024</p>
@@ -151,14 +177,14 @@
           </div>
           <div class="previews">
             <preview-box>
-              <three-anim draw="circle"></three-anim>
+              <three-anim draw="circle" rot_mouse></three-anim>
               <cdraw-anim ></cdraw-anim>
             </preview-box>
             <preview-box>
-              <three-anim draw="head"></three-anim>
+              <three-anim draw="head" zoominout_auto="2"></three-anim>
             </preview-box>
             <preview-box>
-              <three-anim draw="teapot"></three-anim>
+              <three-anim draw="teapot" zoominout_auto="2"></three-anim>
             </preview-box>
           </div>
         </section> 
@@ -175,8 +201,15 @@
                 <!--story-but fnt-p4F>Explore</story-but-->
             </div>
             <div class="t3d-cnt">
-                <three-anim draw="fish"></three-anim>
-                <tag fnt-pF>PLAY</tag>
+                <three-anim draw="fish" zoominout_auto="2" rot_mouse></three-anim>
+                <tag fnt-pF>
+                  <div class="t3d-cnt">
+                    <three-anim draw="controller" size="20" rot_mouse p-color="white"></three-anim>  
+                  </div>
+                  <tag-text class="tag-text" fnt-pF>
+                      CLICK 
+                  </tag-text>
+                </tag>
             </div>
           </div>
         </section>

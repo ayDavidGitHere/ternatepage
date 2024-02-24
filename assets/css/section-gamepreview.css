@@ -113,6 +113,7 @@
      border-radius: 90px; border: 0.21px solid var(--col-secondary); color: var(--col-primary);
      position: absolute; left: 0; top: 50%; transform: translate(-50%, -50%); text-align: center;
      font-size: 20%; line-height: 90px;
+     z-index: 1;
      
     /*border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
 	  animation: borderRadial var(--d) linear infinite forwards;*/
@@ -122,6 +123,25 @@
        position: absolute;
        top: 0;
        left: 0;
+}
+
+
+.page .gamepreview .down .t3d-cnt tag .t3d-cnt { 
+        position: relative;
+        display: block; 
+        width: 100%; height: 100%; 
+        margin-top: calc(0% - 0px); 
+        border: none; background: transparent;
+} 
+
+
+.page .gamepreview .down .t3d-cnt tag .tag-text {
+      position: absolute;
+      display: block; top: 0; left: 0;
+      width: 100%; height: 100%; 
+      margin-top: calc(0% - 0px); 
+      border: none; background: transparent;
+      z-index: 3; text-align: center;
 }
 
 .page .gamepreview[gone] .down .t3d-cnt{

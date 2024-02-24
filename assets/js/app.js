@@ -33,20 +33,20 @@ async function sleep(time) {
 
 const Pages = {
     welcome: async function (app) {
-        app.page.setAttribute("currentview", "welcome"); 
-        page_welcome.run(); 
+        app.page.setAttribute("currentsection", "welcome"); 
+        page_welcome.run(threeanims); 
     },
     
     about: async function (app) {
-        app.page.setAttribute("currentview", "about"); 
+        app.page.setAttribute("currentsection", "about"); 
     },
     
     gartpreview: async function (app) {
-        app.page.setAttribute("currentview", "gartpreview"); 
+        app.page.setAttribute("currentsection", "gartpreview"); 
     },
     
     gamepreview: async function (app) {
-        app.page.setAttribute("currentview", "gamepreview"); 
+        app.page.setAttribute("currentsection", "gamepreview"); 
     },
 }
 
@@ -115,7 +115,7 @@ class App {
             gtl.onclick = async function (e) {
                 app.page.setAttribute("statechanging", "yes");
                 const gotopage = gtl.getAttribute("goto");
-                app.page.setAttribute("currentview", gotopage);
+                app.page.setAttribute("currentsection", gotopage);
                 await sleep(1000);
                 await Pages[`${gotopage}`](app);
                 app.state.showpage(gotopage, () => {
@@ -144,7 +144,7 @@ class App {
             position: absolute; 
             padding: 0px;
         `;
-        let writeComplete = CDraw.writeText(writeBox, "+40px iFl", "Loading ...", "_white", 0.001/5000000);
+        let writeComplete = CDraw.writeText(writeBox, "+40px iFm", "Loading ...", "_white", 0.001/5000000);
 
         return {
             async complete() {
