@@ -67,8 +67,8 @@ class App {
 
         await this.loadAssets(threeanims);
 
-        //await splasherAnim.complete();   
-
+        //await splasherAnim.complete();
+        
         this.loadRoutes(this);
         threeanims.setAnims();
         this.setPagesTransitions(this); 
@@ -144,7 +144,7 @@ class App {
             position: absolute; 
             padding: 0px;
         `;
-        let writeComplete = CDraw.writeText(writeBox, "+40px iFm", "Loading ...", "_white", 0.001/5000000);
+        let writeComplete = CDraw.writeText(writeBox, "+40px iFm", "Loading ...", "_white", 0.001/5000000 * 0.0001 * 0.0001);
 
         return {
             async complete() {

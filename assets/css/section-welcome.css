@@ -24,24 +24,36 @@ WELCOME
 }
 
 
-.page[currentsection="welcome"] .welcome .first-view {
+
+.page .welcome .first-view {
   position: relative;
   width: 100%;
   height: 70%;  
+  overflow-y: hidden;
 }
  
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont {
+.page .welcome .first-view .t3d-cnt { 
+  display: block;
+  margin: 0 auto;
+
+  position: absolute;
+  width: 100%; height: 500px; 
+  top: 0%; transform: translateY(-50%);
+}
+
+.page .welcome .first-view .headline-text-cont {
   position: absolute;
   width: 80%; height: 9rem;
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%); 
 }
 
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont .headline-text {
+.page .welcome .first-view .headline-text-cont .headline-text {
+  --rise-size: 5.0rem;
+
   width: 100%; 
   display: inline-block;
   font-family: hF1;
-  --rise-size: 5.0rem;
   font-size: var(--rise-size); 
   height: var(--rise-size); 
   line-height: var(--rise-size);
@@ -51,115 +63,110 @@ WELCOME
   background-color: transparent; 
   text-align: center;
   box-sizing: border-box;
-  position: relative;
+  position: relative; 
 
-  z-index: 1; 
-}
-
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont .headline-text { 
-  padding-top: var(--rise-size);
-  transition: 1s padding-top ease; 
-  transition-delay: 1.0s;
-}
-
-.page[currentsection="welcome"] .welcome .first-view[is-prime-view] .headline-text-cont .headline-text { 
-  padding-top: 0px;
-}
-
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont .headline-text-top {
-  --rise-size: 2.0rem; 
-
-  font-family: h7F;
-  font-family: karla; 
-
-  transition-duration: calc(2.0s - .7 * 2.0s);
-  transition-delay: calc(.7 * 2.0s);
-  transform: rotate(-.2deg); 
-}
-
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont .headline-text-main-1 { 
-  transition-duration: calc(2.5s - .7 * 2.5s);
-  transition-delay: calc(.7 * 2.5s);
-  transform: rotate(.1deg); 
-}
-
-.page[currentsection="welcome"] .welcome .first-view .headline-text-cont .headline-text-main-2 { 
-  transition-duration: calc(3.0s - .7 * 3.0s);
-  transition-delay: calc(.7 * 3.0s);
-  transform: rotate(-.3deg);
+  z-index: 1;  
 } 
 
-@keyframes text-rise { 
-    0% {
-      padding-top: var(--rise-size);
-    } 
-    70% {
-      padding-top: var(--rise-size);
-    } 
-    100%{
-      padding-top: 0px;
-    } 
+.page .welcome .first-view .headline-text-cont .headline-text-top {
+  --rise-size: 2.0rem;  
+  --ht-done-time: 2.0s; 
+
+  font-family: h7F;
+  font-family: karla;  
+}
+
+.page .welcome .first-view .headline-text-cont .headline-text-main-1 { 
+  --ht-done-time: 2.5s;
+}
+
+.page .welcome .first-view .headline-text-cont .headline-text-main-2 { 
+  --ht-done-time: 3.0s;
+} 
+
+.page .welcome .first-view .headline-text-cont .headline-text { 
+  transition: 1s padding-top ease; 
+  transition-delay: 5.0s;
+  transition-duration: calc(var(--ht-done-time) - .7 * var(--ht-done-time)); 
+  transition-delay: calc(.7 * var(--ht-done-time)); 
+  transform: rotate(-.2deg);
+  padding-top: var(--rise-size);
+}
+
+.page .welcome .first-view[is-prime-view] .headline-text-cont .headline-text {
+  padding-top: 0rem; 
+} 
+
+
+
+@keyframes text-rise {
+  from { padding-top: var(--rise-size); }
+  from { padding-top: 0px; }
 }
 
 
 
 
 
-.headline-text-cont { 
+
+
+
+.headline-text-cont {
+ 
 }
 
-.headline-text {  
+.headline-text-cont:before { 
+  position: absolute;
+  top: 0%; left: 0%; 
+  width: 100%; height: 100%;
+
+
+  content: "";
 }
-/*
+
+.headline-text {   
+  z-index: 1;
+  --before-bg-position-x: -100%;
+  --before-bg-position-y: -100%;
+  cursor: none;
+}
+
+.headline-text[ht-1]{
+  --clip-circle: 8px;
+} 
+.headline-text[ht-2]{
+  --clip-circle: 15px;
+} 
+.headline-text[ht-3]{
+  --clip-circle: 13px;
+} 
+ 
 .headline-text::before {
   content: attr(data-title);
   background-color: #ff772222;
   position: absolute;
   top: 0%; left: 0%; 
-  width: 100%; height: 100%;
-  padding-top: var(--rise-size);
-  transition: 1s padding-top ease; 
-  transition-delay: 1.0s;
+  width: 100%; height: 100%;  
+
+  color: var(--bg-primary); 
 
 
-  z-index: 9; 
-}*/
+  background: white;
+  clip-path: circle(var(--clip-circle) at var(--before-bg-position-x) var(--before-bg-position-y)); 
+
+  z-index: 3; 
+} 
 
 .custom-cursor {
   position: absolute; 
   border-radius: 50%;  
-  height: 50px; width: 50px; 
+  height: 60px; width: 60px; 
   top: 50%; left: 50%;
   transition: .1s ease-in; 
-  background: var(--bg-primary);
+  background: #00041800; 
   border: .2px solid white; 
-}
-
-.custom-cursor::before {
-  position: absolute;
-  border-radius: 50%;  
-  content: "";
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-}
-
-
-
-
-
-
-/*
-.custom-cursor::before {
-  position: absolute;
-  background: rgba(255, 255, 255, .2);
-  content: "";
-  height: 100%;
-  width: 100%;
-  z-index: 2; 
-}
-*/
-
+  display: none;
+} 
 
 
 
@@ -189,7 +196,7 @@ WELCOME
 }
 
 .page .welcome .next-view {
-  display: flex; width: 100%; height: 100vh;
+  display: flex; width: 100%; height: auto;
   justify-content: center;
   flex-flow: row-wrap;
   padding: 0%; margin: 0%; 
@@ -204,14 +211,16 @@ WELCOME
   opacity: 0;
   animation: 2s side1-rise ease-out;
   animation-delay: var(--headline-done-time);
-  animation-fill-mode: forwards; 
-
+  animation-fill-mode: forwards;  
+  height: 100vh;
+}
+.page .welcome .next-view[hold] .side1 {
   position: sticky;
-  top: 0;
+  top: 0; 
 }
 .page .welcome .next-view .side2 {
   width: 50%; height: 100%;
-  display: block; box-sizing: border-box;   
+  display: block; box-sizing: border-box;  
 }
 
 
@@ -332,7 +341,7 @@ WELCOME
     position: relative;
     width: 100%;
     height: 100%; 
-    overflow-y: visible;
+    overflow-y: hidden;
     background: linear-gradient(180deg, var(--bg-secondary-trsp) 0%, rgba(0,0,0,0) 100%);
 }
 
@@ -340,16 +349,10 @@ WELCOME
 .page .welcome .last-view .t3d-cnt {
     display: block;
     margin: 0 auto;
-    width: 100%;   
-    height: 50%;
-}
 
-.page .welcome .last-view .t3d-cnt.cnt-1 {
-    height: 50%;
-}
-
-.page .welcome .last-view .t3d-cnt.cnt-2 {
-    height: 40%;
+    position: absolute;
+    width: 100%; height: 500px; 
+    top: 100%; transform: translateY(-50%);
 }
 
 .page .welcome .major-text-cont {

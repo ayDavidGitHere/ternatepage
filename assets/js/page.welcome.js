@@ -169,6 +169,7 @@ function returnScroll(scrollEvent, scrollDelta, container, element) {
 
 function addFirstViewCursor(container) { 
     const contRect = container.getBoundingClientRect();
+    const hTexts = container.querySelectorAll(".headline-text");
     const cursor = document.createElement("div");
     cursor.classList.add("custom-cursor");
     container.appendChild(cursor); 
@@ -179,10 +180,32 @@ function addFirstViewCursor(container) {
       const cursY = e.clientY - contRect.top - cursRect.height / 2;  
       cursor.style.top = `${cursY}px`;
       cursor.style.left = `${cursX}px`; 
+
+        [...hTexts].map((hText, hTextIndex)=>{
+          const bgCursX = cursX - hText.getBoundingClientRect().left + cursRect.width / 2;;
+          const bgCursY = cursY - hText.getBoundingClientRect().top + cursRect.height / 2;; 
+
+          getElementStyle(`.headline-text[ht-${hTextIndex+1}]`)
+            ?.setProperty("--before-bg-position-x", `${bgCursX}px`); 
+
+          getElementStyle(`.headline-text[ht-${hTextIndex+1}]`)
+            ?.setProperty("--before-bg-position-y", `${bgCursY}px`);  
+        });
     });
 }
 
-
+function getElementStyle(selectorText) {
+    let styles = [];
+    for(let styleSheet of document.styleSheets){  
+        let styleRule = null;
+        try{
+            styleRule = [...styleSheet.cssRules]
+            .find(r=>r.selectorText == selectorText)
+        }catch(e){} 
+        if(styleRule) styles.push(styleRule.style);
+    }  
+    return styles[0];
+}
 
 
 
@@ -201,6 +224,7 @@ let run = function(threeanims){
     let indicator = document.querySelector(".go-link[goto='welcome']");
 
     let welcomepage = document.querySelector("section.sections.welcome");
+    welcomepage.setAttribute("loaded", "");
 
     let welcome_views = document.querySelectorAll("section.sections.welcome .in-view");
 
@@ -311,7 +335,18 @@ let run = function(threeanims){
             indicator.innerText = "&";
             returnScroll(scrollEvent, scrollDelta, welcomepage, welcome_nextview);
             transferScroll(scrollEvent, scrollDelta, welcome_nextview_side2);
-        }} 
+        }}
+        
+        if(welcome_nextview_percentinview > 100 
+        && !welcome_nextview.hasAttribute("hold") ) {
+            welcome_nextview.setAttribute("hold", "");
+        } 
+        if(welcome_nextview_btmpercentinview > 0 
+        &&  welcome_nextview.hasAttribute("hold") ) {
+            welcome_nextview.removeAttribute("hold", "");
+        }
+
+
         /* transfer scroll to child*/
 
 
