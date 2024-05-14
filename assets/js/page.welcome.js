@@ -91,15 +91,7 @@ class ScrollHandler {
         }, { threshold: 0 });
 
         observer.observe(element);
-    }
-
-    limitScroll(divideby) { 
-        let delta = 0; 
-        this.elements.map(element => {
-            element.addEventListener('scroll', (e) => {  
-            });    
-        });
-    }
+    } 
 
     handleScroll(e, delta) {
         this.handleScrollCallback(e, delta); 
@@ -159,37 +151,26 @@ class ScrollHandler {
     elementScrollPercent(element) { 
         return 100 * element.scrollTop / ( element.scrollHeight - element.clientHeight);
     }
-}
-function transferScroll(scrollEvent, scrollDelta, child) { 
-    child.scrollTop += scrollDelta; 
-}
-function returnScroll(scrollEvent, scrollDelta, container, element) { 
-    container.scrollTo(0, container.scrollTop-scrollDelta); 
-}
+} 
 
-function addFirstViewCursor(container) { 
-    const contRect = container.getBoundingClientRect();
-    const hTexts = container.querySelectorAll(".headline-text");
-    const cursor = document.createElement("div");
-    cursor.classList.add("custom-cursor");
-    container.appendChild(cursor); 
+function addInvertedCursor(container) { 
+    const contRect = container.getBoundingClientRect(); 
 
-    container.addEventListener('mousemove', e => {
-      const cursRect = cursor.getBoundingClientRect();  
-      const cursX = e.clientX - contRect.left - cursRect.width / 2;
-      const cursY = e.clientY - contRect.top - cursRect.height / 2;  
-      cursor.style.top = `${cursY}px`;
-      cursor.style.left = `${cursX}px`; 
+    container.addEventListener('mousemove', e => { 
 
-        [...hTexts].map((hText, hTextIndex)=>{
-          const bgCursX = cursX - hText.getBoundingClientRect().left + cursRect.width / 2;;
-          const bgCursY = cursY - hText.getBoundingClientRect().top + cursRect.height / 2;; 
+        [`.headline-text[ht-1]`,
+         `.headline-text[ht-2]`,
+         `.headline-text[ht-3]`,
+         `.headline-text-cont`]
+        .map((elementSelector)=>{
+            let element = document.querySelector(elementSelector);
 
-          getElementStyle(`.headline-text[ht-${hTextIndex+1}]`)
-            ?.setProperty("--before-bg-position-x", `${bgCursX}px`); 
+            const bgCursX = e.clientX - contRect.left - element.getBoundingClientRect().left;
+            const bgCursY = e.clientY - contRect.top - element.getBoundingClientRect().top; 
 
-          getElementStyle(`.headline-text[ht-${hTextIndex+1}]`)
-            ?.setProperty("--before-bg-position-y", `${bgCursY}px`);  
+            let elementStyle = getElementStyle(elementSelector);
+            elementStyle?.setProperty("--before-bg-position-x", `${bgCursX}px`);  
+            elementStyle?.setProperty("--before-bg-position-y", `${bgCursY}px`);  
         });
     });
 }
@@ -309,11 +290,10 @@ let run = function(threeanims){
     // Create an instance of the ScrollHandler class and initialize it
     const scrollHandler = new ScrollHandler(welcomepage, welcome_nextview_side2);
     scrollHandler.initialize();
-    scrollHandler.setIntersectionListener(welcome_nextview);
-    scrollHandler.limitScroll(.5);
+    scrollHandler.setIntersectionListener(welcome_nextview); 
 
     scrollHandler.handleScrollCallback = function(scrollEvent, scrollDelta) {  
-        indicator.innerText = "-";
+        indicator.innerText = Math.floor(new Date().getSeconds());
         let welcome_nextview_percentinview = scrollHandler.elementPercentInView(welcome_nextview);;
         let welcome_nextview_side2_percentinview = scrollHandler.elementPercentInView(welcome_nextview_side2);;
 
@@ -325,28 +305,18 @@ let run = function(threeanims){
 
 
 
-        /* transfer scroll to child*/
-        if(false && welcome_nextview_btmpercentinview <= 100) {
-        if(
-            (welcome_nextview_btmpercentinview >= 0 && welcome_nextview_side2_scrollpercent < 100)
-            //||
-            //(welcome_nextview_btmpercentinview < 0 && welcome_nextview_side2_scrollpercent >= 100)
-            ) {
-            indicator.innerText = "&";
-            returnScroll(scrollEvent, scrollDelta, welcomepage, welcome_nextview);
-            transferScroll(scrollEvent, scrollDelta, welcome_nextview_side2);
-        }}
-        
-        if(welcome_nextview_percentinview > 100 
-        && !welcome_nextview.hasAttribute("hold") ) {
-            welcome_nextview.setAttribute("hold", "");
-        } 
-        if(welcome_nextview_btmpercentinview > 0 
-        &&  welcome_nextview.hasAttribute("hold") ) {
-            welcome_nextview.removeAttribute("hold", "");
+        /* transfer scroll to child*/ 
+        if(welcome_nextview_percentinview > 0) {
+            welcome_nextview.setAttribute("view-top-inview", "");
+        }else {
+            welcome_nextview.removeAttribute("view-top-inview", ""); 
         }
 
-
+        if(welcome_nextview_btmpercentinview > 0) {
+            welcome_nextview.setAttribute("view-bottom-inview", "");
+        }else {
+            welcome_nextview.removeAttribute("view-bottom-inview", ""); 
+        } 
         /* transfer scroll to child*/
 
 
@@ -394,7 +364,7 @@ let run = function(threeanims){
     
     updatePrimeView(); 
 
-    addFirstViewCursor(welcome_firstview)  
+    addInvertedCursor(welcome_firstview)  
 }
 
 

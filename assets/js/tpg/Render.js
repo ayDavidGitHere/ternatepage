@@ -1,7 +1,8 @@
-import * as THREE from 'three';
+import * as THREE from 'three'; 
 import Controls from "./controls.js";
 import BallMotions from "./BallMotions.js";
 import CylindersMotions from "./CylindersMotions.js";
+import GameObjects from "./GameObjects.js";
 
 class Render {
     constructor(container) {
@@ -27,16 +28,14 @@ class Render {
         this.renderer = new THREE.WebGLRenderer();
         this.container.style = `width:100%; height: 100%; margin: 0; padding:0; border: 1px solid green;`
         this.renderer.domElement.style = `margin: 0; padding:0; border: 1px solid red;`;
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
         this.container.appendChild(this.renderer.domElement);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
 
         this.camera.position.set(0, 200, 250);
-        this.camera.lookAt(new THREE.Vector3(0, 20, -100));
-        window.addEventListener('resize', () => { this.onWindowResized(this) }, false);
+        this.camera.lookAt(new THREE.Vector3(0, 20, -100)); 
 
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.container.appendChild(this.renderer.domElement);
+        this.onWindowResized(this);
+        window.addEventListener('resize', () => { this.onWindowResized(this); }, false); 
 
         this.setupLights();
         this.setupBackground();
@@ -87,7 +86,7 @@ class Render {
         return { pointLight, directionalLight, hemisphereLight };
     }
 
-    animate() {
+    animate() { 
         requestAnimationFrame(() => this.animate());
         this.run();
         this.renderer.render(this.scene, this.camera);
@@ -174,11 +173,16 @@ class Render {
         this.ballMotions = new BallMotions(this.ball, this.cylindersMotions, { 
             startupRunning: this.startupRunning
         }, this);
+
+        this.gameObjects = new GameObjects(this);
+
         this.controls = new Controls(this.ballMotions);
+        this.controls.rotateCameraAbout(THREE, this.camera, this.ball, this.renderer, 100, 1);
     }
 
     run() {
         
+        /*
         this.ballMotions.constant(); 
 
         this.cylindersMotions.constant();
@@ -189,6 +193,12 @@ class Render {
         this.updateStartupBoard();
 
         this.updateScoreBoard();
+        */
+
+
+        this.camera_anim();
+
+        this.gameObjects.runAnim();
     } 
     
     increaseScore() {
@@ -329,6 +339,18 @@ class Render {
 
     camera_anim() {
 
+        return;
+
+        this.camera.position.x =  15;
+        this.camera.position.y = 200;
+        this.camera.position.z = 400;
+
+        //lookAt 
+        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+        return;
+
+
         this.camera.position.x =  75;
         this.camera.position.y =  75; 
         return;
@@ -350,8 +372,8 @@ class Render {
     }
 
 
-    onWindowResized(ctx) {
-        ctx.renderer.setSize(window.innerWidth, window.innerHeight);
+    onWindowResized(ctx) { console.log("resize", this.container.clientWidth)
+        ctx.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
         ctx.camera.aspect = window.innerWidth / window.innerHeight;
         ctx.camera.updateProjectionMatrix();
     }

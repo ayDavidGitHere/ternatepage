@@ -8,7 +8,7 @@ CDraw.textAndParticles = function (scene, CR, CW, CH, textSize) {
     setTimeout(function () {
         CDraw.getOpaquePixels(0, CW, 0, CH, function (oPixelPosition) {
             scene.remove(firstText);
-            console.log(oPixelPosition.length);
+            //console.log(oPixelPosition.length);
 
             oPixelPosition.forEach((val) => {
                 const randmity = 1 - 590 / oPixelPosition.length;
@@ -72,7 +72,7 @@ CDraw.fontLoadedListener = function (fontFamily, callback, noload_callback=funct
 
 
         if (prevData == null || comparePixelData(data, prevData)) {
-            console.log(`FontFamily ${fontFamily} is not yet available, retrying ...`);
+            //console.log(`FontFamily ${fontFamily} is not yet available, retrying ...`);
             if (retries > 0) {
                 setTimeout(checkReady, 200);
                 retries -= 1/5;

@@ -36,6 +36,59 @@ class Controls {
             this.ballMotions.moveLeft();
         }
     }
+
+
+    rotateCameraAbout(THREE, camera, geometry, renderer, radius, sensitivity) {
+        const onMouseMove = (event) => {
+            const target =  geometry.position;
+
+            const { clientX, clientY } = event;
+
+            const deltaX = clientX - this.previousClientX;
+            const deltaY = clientY - this.previousClientY;
+
+            const theta = deltaX * sensitivity;
+            const phi = deltaY * sensitivity;
+
+            const thetaRadians = THREE.MathUtils.degToRad(theta);
+            const phiRadians = THREE.MathUtils.degToRad(phi);
+
+            const spherical = new THREE.Spherical().setFromVector3(camera.position.clone().sub(target));
+            spherical.theta += thetaRadians;
+            spherical.phi += phiRadians;
+
+            spherical.phi = Math.max(0, Math.min(Math.PI, spherical.phi)); // Restrict vertical rotation
+
+            const position = new THREE.Vector3().setFromSpherical(spherical).add(target);
+
+            camera.position.copy(position);
+            camera.lookAt(target);
+
+            this.previousClientX = clientX;
+            this.previousClientY = clientY;
+            console.log("onMouseMove");
+        };
+
+        const onMouseDown = (event) => {
+            event.preventDefault();
+
+            this.previousClientX = event.clientX;
+            this.previousClientY = event.clientY;
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            console.log("onMouseDown");
+        };
+
+        const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            console.log("onMouseUp");
+        };
+
+        renderer.domElement.addEventListener('mousedown', onMouseDown);
+    }
+
 }
 
 export default Controls;

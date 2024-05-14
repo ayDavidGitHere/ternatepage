@@ -111,63 +111,51 @@ WELCOME
 
 
 
-.headline-text-cont {
- 
-}
 
-.headline-text-cont:before { 
-  position: absolute;
-  top: 0%; left: 0%; 
-  width: 100%; height: 100%;
-
-
-  content: "";
-}
-
-.headline-text {   
+[css-invert-cursor] {   
   z-index: 1;
   --before-bg-position-x: -100%;
   --before-bg-position-y: -100%;
+  --clip-circle: 15px;
   cursor: none;
+} 
+
+[css-invert-cursor]::before { 
+  content: attr(data-title);
+
+  position: absolute;
+  top: 0%; left: 0%; 
+  width: 100%; height: 100%; 
+  
+  clip-path: circle(var(--clip-circle) at var(--before-bg-position-x) var(--before-bg-position-y));  
+}
+
+.headline-text-cont { 
+  --clip-circle: 15px;
+}
+
+.headline-text-cont:before { 
+  background: white;
+  color: var(--bg-primary);  
+
 }
 
 .headline-text[ht-1]{
-  --clip-circle: 8px;
+  --clip-circle: 15px;
 } 
 .headline-text[ht-2]{
   --clip-circle: 15px;
 } 
 .headline-text[ht-3]{
-  --clip-circle: 13px;
+  --clip-circle: 15px;
 } 
  
-.headline-text::before {
-  content: attr(data-title);
-  background-color: #ff772222;
-  position: absolute;
-  top: 0%; left: 0%; 
-  width: 100%; height: 100%;  
-
-  color: var(--bg-primary); 
-
-
+.headline-text::before {    
   background: white;
-  clip-path: circle(var(--clip-circle) at var(--before-bg-position-x) var(--before-bg-position-y)); 
+  color: var(--bg-primary);  
 
   z-index: 3; 
-} 
-
-.custom-cursor {
-  position: absolute; 
-  border-radius: 50%;  
-  height: 60px; width: 60px; 
-  top: 50%; left: 50%;
-  transition: .1s ease-in; 
-  background: #00041800; 
-  border: .2px solid white; 
-  display: none;
-} 
-
+}  
 
 
 
@@ -214,16 +202,22 @@ WELCOME
   animation-fill-mode: forwards;  
   height: 100vh;
 }
-.page .welcome .next-view[hold] .side1 {
-  position: sticky;
-  top: 0; 
-}
 .page .welcome .next-view .side2 {
   width: 50%; height: 100%;
   display: block; box-sizing: border-box;  
 }
 
 
+
+
+.page .welcome .next-view[view-top-inview] .side1 {
+  position: sticky;
+  top: 0; 
+}
+
+.page .welcome .next-view[view-bottom-inview] .side1 { 
+  
+} 
 
 .page .welcome .t3d-cnt {
   position: relative;

@@ -271,6 +271,7 @@ ABOUT
 .page .go-link-cnt .go-link[opener]{
     display: inline-block; opacity: 1;
     pointer-events: auto;
+    font-family: hF1;
 }
 .page .go-link-cnt .go-link:hover { 
     color: var(--col-secondary);

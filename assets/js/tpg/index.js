@@ -19,7 +19,7 @@ class Tpg extends Base {
     renderPage() { 
         this.clearPage();
         document.querySelector("html body").innerHTML += `
-            <div id="tpg-main-canvas"></div>
+            <div id="tpg-main-canvas" style="width: 300px; height: 300px;"></div>
         `;
         // Instantiate the class
         const render = new Render(document.getElementById('tpg-main-canvas'));
